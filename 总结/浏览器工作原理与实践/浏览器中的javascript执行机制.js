@@ -22,3 +22,38 @@ function runStack(n) {
 }
 runStack(50000)
 如何优化上述代码，解决栈溢出的问题？
+1, 将递归改成循环的方式
+function runStack(n) {
+  while (n !== 0) {
+    n -= 2;
+  }
+
+  return 100;
+}
+runStack(50000);
+2, 使用数组来模拟栈
+function runStack(n) {
+  const stack = [n]
+  while (n !== 0) {
+    n -= 2
+    if (n !== 0) {
+      stack.push(n)
+    } else {
+      return console.log(100) && 100;
+    }
+  }
+}
+runStack(50000)
+3，加入定时器的方法来把当前任务拆分为其他很多小任务：
+function runStackPromise(n) {
+  if (n === 0) return Promise.resolve(100)
+  return Promise.resolve(n - 2).then(runStackPromise)
+}
+runStackPromise(500000).then(console.log)
+4, 使用异步来分块处理，注意异步队列也有上限，分块粒度不能太细
+function runStack(n, count = 0) {
+  if (n === 0) return console.log(100) && 100;
+  if (count > 5000) return setTimeout(runStack, 0, n - 2);
+  return runStack(n - 2, count + 1)
+}
+runStack(50000)
