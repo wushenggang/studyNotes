@@ -11,3 +11,4 @@ Javascript是一种弱类型的，动态的语言
 1，JOSN.parse(JSON.stringify(obj))
 2, 递归遍历对象
 3，Object.assigin()这种方法只能拷贝一层，有嵌套的情况就不适用了
+13：
