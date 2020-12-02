@@ -84,3 +84,18 @@ let myname = '极客时间'
   但是内部函数引用外部函数的变量依然保存在内存中，我们就把这些变量的集合称为闭包。比如外部函数是 foo，那么这些变量的集合就称为 foo 函数的闭包。
   通过开发者工具中sources选项中的Scope可以查看实际代码的作用域链情况
   闭包使用原则：如果该闭包会一直使用，那么它可以作为全局变量而存在；但如果使用频率不高，而且占用内存又比较大的话，那就尽量让它成为一个局部变量。
+
+  11:
+  当执行 new CreateObj() 的时候，JavaScript 引擎做了如下四件事：
+  1, 首先创建了一个空对象 tempObj；
+  2, 接着调用 CreateObj.call 方法，并将 tempObj 作为 call 方法的参数，这样当 CreateObj 的执行上下文创建时，它的 this 就指向了 tempObj 对象；
+  3, 然后执行 CreateObj 函数，此时的 CreateObj 函数执行上下文中的 this 指向了 tempObj 对象；
+  4, 最后返回 tempObj 对象。
+var tempObj = {}
+CreateObj.call(tempObj)
+return tempObj
+关于this:
+1, 当函数作为对象的方法调用时，函数中的 this 就是该对象;
+2, 当函数被正常调用时，在严格模式下，this 值是 undefined，非严格模式下 this 指向的是全局对象 window;
+3, 嵌套函数中的 this 不会继承外层函数的 this 值;
+ES6 中的箭头函数并不会创建其自身的执行上下文，所以箭头函数中的 this 取决于它的外部函数
