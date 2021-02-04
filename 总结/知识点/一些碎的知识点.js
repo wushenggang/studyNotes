@@ -4,6 +4,8 @@ es6模块化加载和commonJS模块化加载的区别：
 
 npx的作用：让项目内部安装的模块用起来更方便，npx 会自动查找当前依赖包中的可执行文件，如果找不到，就会去 PATH 里找。如果依然找不到，就会帮你安装！（在更新npm5.2.0的时候会自动安装npx）
 
+substring(start, stop)  stop: 比要提取的子串的最后一个字符在 stringObject 中的位置多 1。 substr(start, length) slice
 toDoList
 1, package - lock.json
 2, 了解微前端
+
