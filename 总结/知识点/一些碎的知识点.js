@@ -8,4 +8,5 @@ substring(start, stop)  stop: 比要提取的子串的最后一个字符在 stri
 toDoList
 1, package - lock.json
 2, 了解微前端
+3，nextTick  keep - alive
 
