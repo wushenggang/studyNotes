@@ -14,7 +14,7 @@ eventHUb的原理（手写发布订阅模式）
 Promise.all()
 Promise.race()
 
-手写ivew中的Modal框，封装成一个vue组件
+手写ivew中的Modal框，封装成一个vue组件。需要挂载到body上，如何挂载到body上
 
 vue的生命周期
 
