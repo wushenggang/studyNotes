@@ -1,0 +1,551 @@
+1，html语义化  就是使用正确的标签，段落 p  标题 h1  文章 article 视频video
+
+2, meta viewport <meta name="viewport" content="width=device-width" initial-scale=1, 
+maximum-scale=1, minimum-scale=1,user-scalable=0> css中的1px并不等于设备的1px
+
+3,用过哪些html5标签   header nav footer main audio
+
+4，H5    移动端页面
+
+5，盒模型   标准：box-sizing: content-box  IE：box-sizing：border-box  挺喜欢用border-box 因为更好用
+
+6，实现垂直居中   可以用table实现  flex实现  字体垂直居中的话 height = line-height div装成table  绝对定位
+
+7,flex-direction   flex-wrap  flex-flow  justify-content  align-items  align-content（定义了多根轴线的对齐方式）
+order  flex-grow（0） flex-shrink（1）  flex-basis（项目占据的主轴空间）  flex  align-self（align-items）
+
+7，块格式化上下文（BFC）1，浮动元素  2，绝对定位元素  3，行内块元素  4，overflow值不为visible的块元素  
+
+8，ES6  let const 箭头函数 Promise  解构赋值 模板字符串 展开操作符(...)  默认参数  import export class extends  Map Set
+解构从数组和对象提取值并赋值给独特的变量    for...of循环 可以循环任何可迭代（也就是遵守可迭代协议）类型的数据。默认情况下，
+包含以下数据类型：String、Array、Map 和 Set
+
+10,Promise.all([promise1, promise2]).then(success1, fail1)
+
+9，var request = new XMLHttpRequest()
+ request.open('GET', '/a/b/c?name=ff', true);
+ request.onreadystatechange = function () {
+   if(request.readyState === 4 && request.status === 200) {
+     console.log(request.responseText);
+   }};
+ request.send();
+
+ 10，闭包 函数中访问了外部的变量就是闭包  return一个函数为了创造局部变量   
+
+ 11，立即执行函数  1，声明一个匿名函数  2，马上调用这个匿名函数  创建一个独立作用域  避免变量污染
+
+ 12，同源策略  浏览器出于安全方面的考虑，只允许与同域下的接口交互。 同协议 同域名 同端口 
+
+ 13， 跨域资源共享(CORS) 是一种机制，它使用额外的 HTTP 头来告诉浏览器  让运行在一个
+ origin (domain) 上的Web应用被准许访问来自不同源服务器上的指定的资源。
+
+14, 实现深拷贝  JSON.parse(JSON.stringify())   for-in遍历和复制  递归 判断类型
+，判断类型，如果为对象，还要进行递归操作，不是的话直接复制
+
+15，继承  不用class的话 原型链继承 或者构造函数 Animal.call , apply方法可以实现继承  class extends
+
+16,数组去重 借用indexOf方法  用Set和扩张运算符  [...new Set(arr)]  Array.from(new Set(arr))
+
+17,事件委托主要是因为事件的冒泡  e.target 
+
+18,get和post GET请求在URL中传送的参数是有长度限制的，而POST么有 GET比POST更不安全，
+因为参数直接暴露在URL上，所以不能用来传递敏感信息。
+
+19 LocalStorage 一般不会自动过期（除非用户手动清除），而 SessionStorage 在回话结束时过期（如关闭浏览器）
+主要区别是 Cookie 会被发送到服务器，而 LocalStorage 不会
+Cookie 一般最大 4k，LocalStorage 可以用 5Mb 甚至 10Mb（各浏览器不同）
+Cookie 存在浏览器的文件里，Session 存在服务器的文件里
+Session 是基于 Cookie 实现的，具体做法就是把 SessionID 存在 Cookie 里
+
+
+VUE
+
+
+
+
+20 watch computed methods  监视  计算属性 方法 computed缓存 依赖变化才变化 method触发一次才操作一次
+ 
+21 vue生命周期 beforeCreate created（数据初始化完成） beforeMount mounted（dom挂载完成）
+beforeUpdate  updated beforeDestory destroyed 
+
+22,vue组件通信 父——》子 v-bind 绑定父组件来的内容  props接受 子-》父亲 子组件$emit()来触发事件  父 v-on监听子组件事件
+兄弟 new eventHub()  event.emit() event.on()
+
+23, vuex 状态管理模式  state 数据源，保存的数据 Getters 类似于vue中的computed属性  mutations英文名改变 定义函数（方法）  action  而是让我们去提交一个actions（dispatch），
+在actions中(dispatch)提交mutation(commit)再去修改状态值
+
+Vue 数据响应式怎么做到的？使用 Object.defineProperty 把这些属性全部转为 getter/setter
+e 不能检测到对象属性的添加或删除，解决方法是手动调用 Vue.set 或者 this.$set
+
+24 路由管理器 router-link/router-view/this.$router.push/this.$router.replace/this.$route.params
+ mvvm 继承 v-model
+
+
+
+WEBPACK
+
+
+
+
+25常见的loader css-loader(加载 CSS) style-loader(将css代码注入到javascript) babel-loader  image-loader（加载并且压缩图片文件）
+eslint-loader（通过eslint检查代码）less-loader scss-loader
+    常见plugin commons-chunk-plugin（提取公共代码） htmlwebpakcplugin （生成html文件并将资源注入）
+ 去除前一次打包的文件的插件   ExtractTextPlugin可以把内联的css文件提取出来
+ define-plugin：定义环境变量
+
+26loader和plugin的区别 Loader直译为"加载器"Loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。 
+Plugin直译为"插件"。Plugin可以扩展webpack的功能，让webpack具有更多的灵活性。 在 Webpack 运行的生命周期中会广播出许多事件，Plugin 可以监听这些事件，
+在合适的时机通过 Webpack 提供的 API 改变输出结果。
+
+27如何按需加载代码？通过import(*)语句来控制加载时机 output中配置chunkFileName  
+
+28，如何提高构建速度？ 
+多入口情况下，使用CommonsChunkPlugin来提取公共代码
+通过externals配置来提取常用库
+利用DllPlugin和DllReferencePlugin预编译资源模块 通过DllPlugin来对那些我们引用但是绝对不会修改的npm包来进行预编译，再通过DllReferencePlugin将预编译的模块加载进来。
+使用Happypack 实现多线程加速编译
+使用webpack-uglify-parallel来提升uglifyPlugin的压缩速度。 原理上webpack-uglify-parallel采用了多核并行压缩来提升压缩速度
+使用Tree-shaking和Scope Hoisting来剔除多余代码
+
+29，转义出文件过大怎么办
+按需加载
+
+
+30，如何利用webpack来优化前端性能？（提高性能和体验）
+用webpack优化前端性能是指优化webpack的输出结果，让打包的最终结果在浏览器运行快速高效。
+
+	压缩代码。删除多余的代码、注释、简化代码的写法等等方式。可以利用webpack的UglifyJsPlugin和ParallelUglifyPlugin来压缩JS文件，
+	 利用cssnano（css-loader?minimize）来压缩css
+	利用CDN加速。在构建过程中，将引用的静态资源路径修改为CDN上对应的路径。可以利用webpack对于output参数和各loader的publicPath参数来修改资源路径
+	删除死代码（Tree Shaking）。将代码中永远不会走到的片段删除掉。可以通过在启动webpack时追加参数--optimize-minimize来实现
+	提取公共代码。
+
+先自我介绍 本人基本情况  姓名 毕业时间 职位 然后参与过什么项目 擅长的技能vue es6  项目介绍 我最新开发的项目 有什么人参与，开发周期 我负责的内容，模块  。。。。。。  vue diff计算   
+吴盛钢 18年毕业 自动化专业 前端工程师 大学觉得程序员很酷，听崇拜那些技术人员，觉得很酷，开始自学前端， 从大三的时候开始实习，
+那个时候在银美科技实习，那个时候我公司还没有前后端分离，主要的工作是写静态页面，主要用的技术jquery，2018年毕业后去同花顺，，
+18年做的主要是手机端的项目 同花顺app中的数据中心模块开发 给客户展示股票各方面的信息，给他们投资建议， 两个前端分模块开发，我们用的技术
+框架是vue。经过这个项目的开发，对页面的要求很高，像素眼睛，css长进很多，我有遇到很多安卓和ios兼容的问题，在这方面有踩过一些坑
+（input聚集的时候ios）（安卓低版本flew-wrap不支持） ios数字当作号码 meta content tepelhone=no 安卓 字体居中，height-light 票高。
+有时对非可点击元素如(label,span)监听click时间，ios下不会触发，css增加cursor:pointer就搞定了。然后对于客户端的联调也有了一定经验 vconsole
+ 抓包 谷歌浏览器真机调试  。2019年我主要做的是后台管理系统 ，我用的框架是vue框架，
+ui框架是iview矿建。这个后台系统包含很多个不同的但有一定联系的管理模块，有对用户行为分析的，有对股票进行打标签的系统，
+有些模块事之前就开发好的。一直没有上线，到我的时候需要上线。做了大量的优化工作，代码里有很多不合理的地方我去改正，命名。内联样式等，
+最主要的是代码非常长，没有把公共部分分模块，
+我的任务就主要是修改这些残留的bug以及把代码优化。然后有新的模块也在同步开发。就感觉经过在同花顺的两年，自己也得到了蛮大的替提升
+
+ios position:fixed 会随着屏幕的滚动而滚动  把需要滚动的用一个div包起来，然后也fixed   -webkit-overflow-scrolling: touch; /*这句是为了滑动更顺畅*/
+一些情况下对非可点击元素（label，span）监听click事件，ios下不会触发，css增加cursor：pointer就搞定了。
+
+ios下fixed元素容易定位出错，软键盘弹出时，影响fixed元素定位      ------可用iScroll插件解决这个问题
+使用absolute定位，并使用javascript动态改变层的位置     会抖动
+-webkit-overflow-scrolling: touch;//IOS端解决滑动问题；
+
+C端表现地更五彩一点
+
+ES6新特性  let const 箭头函数 Promise  解构赋值 模板字符串 展开操作符(...)  默认参数  import export class extends  Map Set
+解构从数组和对象提取值并赋值给独特的变量    for...of循环 可以循环任何可迭代（也就是遵守可迭代协议）类型的数据。默认情况下，
+包含以下数据类型：String、Array、Map 和 Set
+
+v-for  v-bind  v-if v-else v-elseif  v-show和v-if的区别：v-show是通过css样式控制显示或者隐藏，v-if则是通过dom节点的删除增加来
+v-on 标签内绑定事件  全局api Vue.set(data,'sex', '男')   Vue.delete Vue.component(注册全局组件)  Vue.use(vuex)  实例的属性和方法  
+this.$emit  $on $nextTick $once
+
+github 看博客 掘金 知乎 公众号 前端大全） 看书（蝴蝶书） ES6 闭包 flex（软一峰） 张鑫旭  方应杭（闭包）  css世界  float 绝对定位 司徒正美
+ 廖雪峰勾三股四 忧雨溪（知乎）  朴灵
+
+Vue项目优化
+1，对js ，css 进行gzip压缩  配置 在vue-cli脚手架的配置信息中，有对代码进行压缩的配置项，例如index.js的通用配置，
+vue.config.js  productionGzip设置为true，但是首先需要对compress-webpack-plugin支持
+
+  nginx也需要配置
+2，通过cdn引入静态资源库(index.html)
+webpack
+1，webpack中的commonsChunkPlugin来提取公共代码
+2，webpack的fastUglifyJsPlugin和ParallelUglifyPlugin来压缩JS文件，删除多余的代码，注释等,,,,,commonsChunkFlugin来提取公共的代码
+
+对源码优化 
+1，为item设置唯一key值
+2，细分vue组件
+3，减少watch的数据
+4，事件的销毁  ，需要在组件销毁时手动移除一些事件监听，以免内存泄漏，类似addEventListener。需要remove
+5，图片资源懒加载 vue-lazyLoad   将图片的src放置一张默认的图片，属性上面添加图片的地址  
+可见区域高度（document.documentElement.clientHeight;）和 滚动条距离页面顶部的距离，scrollTop' 大于 图片的offsetTop
+
+6，有些组件是存粹的数据展示，不会有变化，不需要vue来劫持数据，可以通过 Object.freeze 方法来冻结一个对象，这样也可以提速
+7，对路由组件进行懒加载   ES 提出的import方法，（------最常用------） const HelloWorld = （）=>import('需要加载的模块地址')
+
+6，对js，css进行gZip压缩优化  config文件夹下index.js将productionGzip改为true，安装npm compression-webpack-plugin nginx也需要修改
+
+加loading~
+
+vue3.0对 typescript的支持  Object.defineProperty替换为Proxy
+
+实现继承的方法
+1，原型链继承      ------子类型的原型为父类型的一个实例对象
+2，借用构造函数继承     ---------在子类型构造函数中通过call()调用父类型构造函数
+3，class通过extends继承
+
+vue-cli帮我们做的工作 1，.vue文件-》js文件  2，es6语法-》es5语法 3，scss,less->css 4,对jpg,png,font等静态资源的处理 4，热更新
+
+修饰符
+stop（event.stopPropagation） .prevent(event.preventDefault())   .self  .once .capture .left .right
+MVVM   Model（数据模型，是数据，data） 
+view（视图层，是模板） viewModel（视图模型，连接数据和视图）   
+优点 1，分离视图（view）模型（model）降低代码的耦合
+2，自动更新dom: 利用双向绑定,数据更新后视图自动更新,让开发者从繁琐的手动dom中解放
+缺点
+1，对于大型的图形应用程序，视图状态较多，ViewModel的构建和维护的成本都会比较高
+
+
+keep-alive  们可以使用keepalive来进行组件缓存（保存之前的状态） （activited  kee-alive专属，组件被激活时调用,deadctivated 组件被摧毁时调用调用）
+<keep-alive include="home">     include值为字符串或者正则表达式匹配的组件name会被缓存
+   <router-view />		exclude值为字符串或正则表达式匹配的组件name不会被缓存
+</keep-alive>
+Vue是如何实现双向绑定的
+mvvm 双向绑定，采用数据劫持结合发布者-订阅者模式的方式，通过 Object.defineProperty() 来劫持各个属性的 setter、getter，
+在数据变动时发布消息给订阅者，触发相应的监听回调。
+,在vue3.0中通过Proxy代理对象进行类似的操作。
+
+Proxy的优势 1，性能更快 1，可以直接监听对象而非属性    Object.defineProperty优势  兼容性好。支持ie9
+
+vue的响应式系统  data被改动时（主要是用户操作），即被写，setter方法会被调用，此时Vue会去通知依赖此data的
+组件去调用他们的render函数进行更新
+
+虚拟DOM的实现原理
+1，虚拟DOM本质上是javascript对象，是对真实DOM的抽象   2，状态变更时，记录新树和旧树的差异  
+3，最后把差异更新到真正的dom上
+优点，1，无需手动操作dom，极大提高开发效率和性能
+
+vue中的key到底有什么用
+ 
+key是为Vue中的vnode标记的唯一id,通过这个key,我们的diff操作可以更准确、更快速
+
+导航守卫
+全局前置守卫 router.beforeEach    全局解析守卫 router.beforeResolve   全局后置钩子 router.afterEach    路由独享的守卫 beforeEnter   组件内的守卫 beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave
+
+js执行机制，事件循环
+1，js语言是单线程的，前一个任务结束，才会执行后一个任务。有两种任务，一种任务是异步任务，一种是同步任务。
+同步和异步任务分别进入不同的执行"场所"，同步的进入主线程，异步的进入 Event Table 并注册函数。当指定的事情完成时，Event Table 会将这个函数移入 Event Queue。
+主线程内的任务执行完毕为空，会去 Event Queue 读取对应的函数，进入主线程执行。上述过程会不断重复，也就是常说的 Event Loop(事件循环)。
+红任务（setTimeout, setInterval, setImmediate, I/O, UI rendering） 微任务（process.nextTick, Promises, nextTick, MutationObserver）
+JS 异步有一个机制，就是遇到宏任务，先执行宏任务，将宏任务放入 Event Queue，然后再执行微任务，将微任务放入 Event Queue，但是，这两个 Queue 不是一个 Queue。当你往外拿的时候
+先从微任务里拿这个回调函数，然后再从宏任务的 Queue 拿宏任务的回调函数。
+点击了一个元素，不会立刻的执行，但是等到js加载完毕后就会执行刚才点击的操作，能够知道有一个队列记录了所有有待执行的操作，这个队列分为微观和宏观。微观会比宏观执行得更快。
+宏任务 Macrotasks 就是参与了事件循环的异步任务。           微任务 Microtasks 就是没有参与事件循环的“异步”任务。
+
+transform:translate(1px,1px),rotate   transition 简单的动画,一般定义开始，结束两个状态，需要有触发的条件  animation:mymove 5s infinite; 后者有关键帧，速度曲线，播放次数等概念，更符合动画定义，且无需触发条件
+
+
+ES6的class和构造函数的区别
+1，es6可以继承静态方法，而构造函数不能
+2，class必须用new调用，否则会报错。构造函数不用new也可以调用
+
+javascript 的垃圾回收机制讲一下
+定义：指一块被分配的内存既不能使用，又不能回收，直到浏览器进程结束。低级语言中，需要开发人员自己显式地分配内存和释放内存，高级语言中，系统会自动分配和释放内存。
+四种常见的内存泄露    1，被遗忘的定时器和回调函数   2，闭包   3，没有清理的dom元素引用  4,全局变量 不用 var 声明的变量，相当于挂载到 window 对象上。如：b=1; 解决：使用严格模式
+
+深拷贝      JSON.parse(JSON.stringify())   对象中不包含函数，正则表达式或者undefined    递归
+
+vue 路由模式
+1，hash模式   地址栏中有#符号，history没有
+1， hash 模式下，仅 hash 符号之前的内容会被包含在请求中。
+2，history 模式下，利用HTML5的pushState() 和 replaceState()，前端的 URL 必须和实际向后端发起请求的 URL 一致    你要在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。
+
+解决跨域  用jsonp
+vue项目中通过proxy代理地址
+jsonp主要是通过script标签，调用他返回的数据，我们一般还可以传递一个函数名称过去
+htm5新法 window.postMessage
+window.name   只要在一个window下，无论url怎么变化，只要设置好了window.name，那么后续就一直都不会改变
+
+cookie和session的认识
+session是基于cookie实现的，cookie保存在客户端浏览器中，而session保存在服务器上。
+cookie存在客户端，安全性低。session存放在服务器的内存中，安全性好
+cookie生命周期是累计的，假如为20分钟，创建时，累计20分钟就结束了。  sessionb是间隔的，如果在15分钟去访问了下，将重新计算session生命周期。
+cookie为多个用户浏览器共享，session为一个用户浏览器独享
+
+输入url发生什么
+1，dns域名解析 （浏览器将url解析出相应的服务器的ip地址）
+2，浏览器与目标服务器建立一条TCP连接（三次握手）
+3，浏览器向服务器发送一条http请求报文
+4，服务器返回给浏览器一条http响应报文
+5，浏览器进行渲染
+6，关闭tcp连接（四次挥手）
+
+三次握手 
+建立连接 
+第一次握手 客户端发了个连接请求消息到服务端
+第二次握手 服务端收到消息后给客户端反馈，询问客户端是否准备好
+第三次握手 客户端收到服务端的反馈后向服务端发送确认消息，表示已经准备好
+（第三次握手是为了防止已经失效的连接请求报文段突然又传到服务端，因而产生错误。）
+关闭连接
+1，客户端向服务器发送连接释放请求
+2，服务器接收到该报文后，发送一个确认报文（半关闭状态）
+这个时候客户端到服务器的连接已经释放，服务器不会再接收数据，客户端也不会不会再发送数据，但服务器到客户端的连接仍然存在，服务器仍然可以向客户端发送数据
+3，服务器向客户端发送连接释放请求
+4，客户端收到释放请求后，向服务器发送确认应答
+
+强制缓存和协商缓存
+
+强制缓存是我们在第一次请求资源时在 http 响应头设置一个过期时间，在时效内都将直接从浏览器进行获取，
+常见的 http 响应头字段如 Cache-Control 和 Expires，expires设置绝对时间，本地时间若有问题，可能会错乱。
+cacheCotrol设置过期时间（相对时长），跟本地时间无关
+协商缓存是我们通过 http 响应头字段 etag 或者 Last-Modified 等判断服务器上资源是否修改，如果修改则从服务器重新获取，
+如果未修改则 304 指向浏览器缓存中进行获取（etag是通过对比浏览器和服务器资源的特征值（如MD5）来决定是否要发送文件内容，如果一样就发304（not modified））
+
+get和post请求的区别
+1，get参数通过url传递，post放在body上，所以post比get安全
+2，get请求在url中传递的参数是有长度限制的，而post没有
+3，get请求会被浏览器主动缓存，而post不会
+4，对参数的数据类型，GET 只接受 ASCII字符，而 POST 没有限制
+
+http状态码
+1XX（临时响应）表示临时响应并需要请求者继续执行操作的状态码
+2xx（成功）表示成功处理了请求的状态码
+3xx（重定向）表示要完成请求，需要进一步操作；通常，这些状态代码用来重定向
+4xx（请求错误）这些状态码表示请求可能出错，妨碍了服务器的处理
+5xx（服务器错误）这些状态码表示服务器在尝试处理请求时发生内部错误。这些错误可能是服务器本身的错误，而不是请求出错
+状态码304（未修改）自从上次请求后，请求的网页未修改过
+
+BFC（块级格式化上下文）具有 BFC 特性的元素可以看作是隔离了的独立容器，容器里面的元素不会在布局上影响到外面的元素
+触发条件  1，浮动 2，绝对定位  3，overflow的值不为visible
+渲染规则：1，同一个BFC下垂直方向上相邻的两个box的外边距(margin)会发生重叠 解决方法（将发生重叠的盒子放在另外一个BFC容器中，即添加一个父盒子，将该盒子设置为BFC容器）
+
+git指令   git add（可反复多次使用，添加多个文件，添加到暂存区） 把文件添加到仓库 git status(告诉你有哪些文件被修改过) git diff(查看修改的内容) git commit -m(提交的说明)把文件提交到仓库   
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id   穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。 
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+查看分支：git branch   创建分支：git branch <name>  切换分支: get check <name>  创建加切换分支 git checkout -b<name> 合并某分支到当前分支 git merge <name>  删除分支： git branch -d <name>
+创建并合并分支  创建并切换分支 git checkout -b<name> 这个分支上修改提交 git add， git status， git commit -m 再切换为主分支 git check <name> 再把分支上的内容合并 git merge <name> 
+解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+1，iview 旧版本的bug  Select的@on-change刚一进页面就执行，解决方法：让它第一次不执行就可以了。设置个标志，初始为false，@on-change中的方法要判断为true才执行，在@on-change判断方法的后面将标志设置为true
+2.14版本前 @on-open-change方法是没有的。就是说下拉框下拉或者收起的瞬间触发这个事件。解决方法 在Select上添加 @click.native方法
+
+
+
+
+在整个 Webpack 构建流程中，最耗时的流程可能就是 Loader 对文件的转换操作了，因为要转换的文件数据巨多，而且这些转换操作都只能一个个
+挨着处理。
+HappyPack 的核心原理就是把这部分任务分解到多个进程去并行处理，从而减少了总的构建时间
+npm i happypack 
+new HappyPack({})   id用来代表处理哪一类文件，use 这里写原来在rules的use里的loader的配置  使用threads来指定happyPack子进程数
+module rules 中使用use指定相对应id的happPack实例来执行
+UglifyJsPlugin更新为 FastUglifyJsPlugin cleanwebpackplugin
+
+
+
+externals  果需要引用一个常用库，但是又不想让webpack打包  使用方法 首先index.html中cdn资源引入,然后externals配置
+CommonsChunkPlugin         resolve中配置alias   
+dllplugin   DllReferencePlugin 把复用性较高的第三方模块打包到动态链接库中，在不升级这些库的情况下，
+动态库不需要重新打包，每次构建只重新打包业务代码。
+
+Promise的最大好处，把执行代码和处理结果的代码清晰地分离了
+
+$nextTIck
+异步渲染，nextTick待dom渲染完再回调
+2,页面渲染时会将data的修改做整合，多次data修改只会渲染一次
+
+slot
+基本使用
+作用域插槽
+具名插槽
+
+动态组件
+1， :is="component-name" 用法
+2，需要根据数据动态渲染的场景，即组件类型不确定
+<div v-for="(val,key) in newsData" :key="key">
+	<component :is="val.type"/>	
+</div>
+
+vue如何异步加载组件
+components:{
+	FormDemo:() => {import('./FormDemo')}
+}
+
+mixin
+1,多个组件有相同的逻辑，抽离出来
+2，mixin并不是完美的解决方案，会有一些问题
+3，vue 3提出的Composition API旨在解决这些问题
+
+mixin的问题
+1，变量来源不明确，不利于阅读
+2，多mixin可能会造成命名冲突
+3，mixin和组件可能出现多对对多的关系，复杂度高
+
+vuex中的异步操作都在Actions中做
+
+MVVM
+数据驱动视图  Model View viewMode
+
+Object.defineProperty的缺点
+1，深度监听，需要递归到底，一次性计算量大
+2，无法监听新增属性/删除属性(Vue.set Vue.delete)
+3,无法原生监听数组，需要特殊处理
+4.5重看一遍
+
+虚拟dom
+优化时间复杂度到O(n)
+
+1，只比较同一层级，不跨级比较
+2，tag不相同，则直接删掉重建，不再深度比较
+3，tag和key，两者都相同，则认为是相同节点，不再深度比较
+
+v-show 和 v-if的区别
+1，v-show通过css display控制显示和隐藏
+2，v-if组件真正的渲染和销毁，而不是显示和隐藏
+3，频繁切换用 v-show， 否则用v-if
+
+为何在v-for中用key
+1，必须用key，且不能是index和random
+2，diff算法中通过tag和key来判断是否是sameNode
+3，减少渲染次数，提升渲染性能
+
+描述Vue组件生命周期（父子组件）
+1,单组件生命周期图
+2，父子组件生命周期关系
+
+Vue组件如何通讯
+1，父子组件 props 和 this.$emit() this.$on()
+2,自定义事件 event.$on()  event.$off() event.$emit()
+3,vuex
+
+描述组件渲染和更新的过程
+初次渲染过程
+1，解析模板为render函数
+2，触发响应式，监听data属性getter setter
+3，执行render函数，生成vnode， patch(elem, vnode)
+
+更新过程
+1，修改data，触发setter
+2，重新执行render函数，生成newVnode
+3，patch(vnode,newVnode)
+
+双向数据绑定v-model的实现原理
+<input :value="xxx" @input="xxx = $event.target.value" />
+1,input元素的value = this.name
+2,绑定input事件 this.name = $event.target.value
+3,data更新触发re-render
+
+对MVVM的理解
+1，model view modelView 数据驱动视图
+
+computed有何特点
+1,缓存，data不变不会重新计算
+2，提高性能
+
+如何将组件所有props传递给子组件
+1，$props
+2,<User v-bind="$props" />
+
+多个组件有相同的逻辑，如何抽离
+mixin
+mixin的缺点
+1，变量来源不明确，不利于阅读
+2，多mixin可能会造成命名冲突
+3，mixin和组件可能出现多对多的关系，复杂度较高
+
+何时使用异步组件
+1，加载大组件
+2，路由异步加载
+
+何时需要使用keep-alive
+1,缓存组件，不需要重复渲染。如多个静态tab也的切换。
+2，性能优化
+
+vuex中action和mutation有何区别
+1，action中处理异步，mutation不可以
+2，mutation做原子操作
+3，action可以整合多个mutation
+
+何时需要使用beforeDestory
+1，解绑自定义事件event.$off
+2,清除定时器
+3.解绑自定义的DOM事件，如window.scroll
+
+vue-router常用路由模式
+1，hash默认
+2，h5 history（需要服务端支持）
+
+如何配置vue-router异步加载
+{
+    path:'/',
+    component: () => import('./../component/main.vue')
+}
+
+用vnode描述一个DOM结构
+{
+    tag:'div',
+    props: {
+        className:'wrap',
+        id：'div1'
+    },
+    children:[
+        tag:'p',
+
+    ]
+}
+
+监听data变化的核心API是什么
+1，Object.defineProperty
+2,以及深度监听，监听数组
+3，有何缺点
+
+Vue如何监听数组变化
+1，Object.defineProperty不能监听数组变化
+2，重新定义原型，重写push，pop等方法，实现监听
+3，Proxy可以原生支持监听数组变化
+
+请描述响应式原理
+1，监听data变化
+2，组件渲染和更新的流程
+
+diff算法的事件复杂度
+1，O(n)
+2,在O(n^3)基础上做了一些调整
+
+简述diff算法的过程
+1，patch(elem,vnode)和patch(vnode,newVnode)
+2,patchVnode和addVnodes和removeVnodes
+3,updateChildren(key的重要性)
+
+Vue为何是异步渲染，$nextTick何用？
+1，异步渲染(以及合并data修改)，以提高渲染性能
+2，$nextTick在DOM更新完之后，触发回调
+
+Vue常见性能优化方式
+1，合理使用v-show和v-if
+2,合理使用computed
+3,v-for时加key,以及避免和v-if同时使用
+4,自定义事件，DOM事件及时销毁
+5,合理使用异步组件
+6,合理使用keep-alive
+7,data层级不要太深
+8，前端通用的性能优化，如图片懒加载
+9.使用SSR
+
+Vue 3升级内容
+1，全部用ts重写（响应式，vdom，模板编译等）
+2，性能提升，代码量减少
+3，会调整部分API
+
+原型关系
+1，每个class都有显示原型prototype
+2，每个实例都有隐式原型__proto__
+3,实例的__proto__指向对应class的prototype
+
+基于原型的执行规则
+1，先在自身属性和方法寻找
+2，如果找不到则自动去__proto__中查找
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
