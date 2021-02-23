@@ -69,10 +69,10 @@ VUE
 beforeUpdate  updated beforeDestory destroyed 
 
 22,vue组件通信 父——》子 v-bind 绑定父组件来的内容  props接受 子-》父亲 子组件$emit()来触发事件  父 v-on监听子组件事件
-兄弟 new eventHub()  event.emit() event.on()
+兄弟 new eventHub()  event.$emit() event.$on()   event.$off()
 
 23, vuex 状态管理模式  state 数据源，保存的数据 Getters 类似于vue中的computed属性  mutations英文名改变 定义函数（方法）  action  而是让我们去提交一个actions（dispatch），
-在actions中(dispatch)提交mutation(commit)再去修改状态值
+在actions中(dispatch)提交mutation(commit)再去修改状态值      Mutation 必须是同步函数,Action 可以包含任意异步操作
 
 Vue 数据响应式怎么做到的？使用 Object.defineProperty 把这些属性全部转为 getter/setter
 e 不能检测到对象属性的添加或删除，解决方法是手动调用 Vue.set 或者 this.$set
