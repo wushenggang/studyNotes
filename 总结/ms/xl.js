@@ -58,10 +58,25 @@ js检测横屏：
 window.orientation：获取屏幕旋转方向，(180或者0为竖屏，90或者 - 90为横屏)
 css可以通过媒体查询来检测横屏  @media screen and(orientation: portrait || landscape)
 
+图片模糊问题：
+在dpr > 1的屏幕上，位图的一个像素可能由多个物理像素来渲染，然而这些物理像素点并不能被准确的分配上对应位图像素的颜色，只能取近似值，所以会模糊
+解决方案：
+1，应该尽可能让一个屏幕像素来渲染一个图片像素，所以，针对不同DPR的屏幕，我们需要展示不同分辨率的图片。
+使用media查询判断不同的设备像素比来显示不同精度的图片（在dpr = 2的屏幕上展示两倍图(@2x) ，在dpr = 3的屏幕上展示三倍图(@3x) ）
+2, 使用img标签的srcset属性，浏览器会自动根据像素密度匹配最佳显示图片
+3, 使用window.devicePixelRatio获取设备像素比，遍历所有图片，替换图片地址
+const dpr = window.devicePixelRatio;
+const images = document.querySelectorAll('img');
+images.forEach((img) => {
+  img.src.replace(".", `@${dpr}x.`);
+})
+4, 使用svg(不管放大多少倍都不会失真)
 
 
 
-如何提高页面的性能
+
+
+如何提高页面的性能（如何减少请求数？）
 工作中遇到的最难的问题
 diff算法
 如何优化老代码

@@ -13,3 +13,4 @@ rem
 vue中的key
 flex
 WebSocket: 服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，适合聊天室场景。
+Promise
