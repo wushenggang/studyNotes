@@ -56,4 +56,32 @@ ssr以及预渲染
 
 提升首页加载速度：
 1，路由懒加载 2，打包文件去掉map文件 3，很多第三方库可以按需引用。如果不能按需引用，可以采用cdn外部加载  4，gzip压缩，通过减小文件体积来提高加载速度
-5, 图片懒加载  6，事件委托
+5, 图片懒加载  6，减少关键资源的数量和大小（删除不必要的注释和GZIP压缩） 7，通过给script标记async或者defer来异步加载js文件
+8，利用服务端ssr和预渲染
+
+提升页面的性能：
+1，尽量减少页面的重排（回流）
+方法：1，避免使用table布局 2，可以用position:absolute使脱离文档流 3，避免频繁操作样式，可以一次性重写style属性，或者将样式列表定义为 class 并一次性更改 class 属性。
+4，避免频繁操作 DOM，创建一个 documentFragment，在它上面应用所有 DOM 操作，最后再把它添加到文档中。5，扁平化 Store 数据结构
+6，利用Object.freeze()提升性能，冻结一个对象，不会为对象加上 setter getter 等数据劫持的方法
+9，事件委托 10，输入搜索时，可以用防抖debounce等优化方式，减少http请求。11，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
+
+页面性能监控：
+通过window.performance.timing来获取各个时间点
+navigationStart: 输入网址按下回车键的时间
+fetchStart:相当于浏览器准备好使用 HTTP 请求获取文档的时间
+第一字节时间： t.responseStart - t.navigationStart;
+白屏时间：(t.domInteractive || t.domLoading) - t.fetchStart
+首屏时间：t.domContentLoadedEventEnd - t.fetchStart;
+注意点：通过window.performance.timing所获的的页面渲染所相关的数据，
+在SPA应用中改变了url但不刷新页面的情况下是不会更新的。因此仅仅通过该
+api是无法获得每一个子路由所对应的页面渲染的时间。
+
+如果需要上报切换路由情况下每一个子页面重新render的时间，需要自定义上报。
+navigator.sendBeacon(url, data)方法。这个方法可以用来发送一些统计和诊断的小量数据，特别适合上报统计的场景。
+该方法不会阻塞页面卸载流程和延迟后面页面的加载。监听页面unload，在unload时发送请求。
+降级方案，通过在unload事件处理器中，通过img.src中在地址后面拼接参数达到目标。
+因为绝大多数浏览器会延迟卸载以保证图片的载入，所以数据可以在卸载事件中发送。
+
+
+slot    vue.mixin
