@@ -78,9 +78,19 @@ vue2 / 3.0响应式原理
 现代项目是怎么利用缓存的？
   webpack 打包的过程以及原理
 commonjs 和 import 的区别
+  1，require是commonjs的规范，在node中实现的api，import是es的语法，
+  2，commonjs导出的值会复制一份，require引入的是复制之后的值（引用类型只复制引用），
+  es module导出的值是同一份（不包括export default），不管是基础类型还是应用类型。
+  3，写法区别
+    const fs = require('fs')
+    exports.fs = fs
+    module.exports = fs
 babel 的原理
 项目是怎么发布上去的
 当项目的用户很多的时候，怎么监控 错误？
+采集、处理、分析、报警
+通过监听全局的 window.onerror 事件捕获到运行时错误，然后上报到采集端，再做一个页面展示数据
+https://zhuanlan.zhihu.com/p/32262716
 还有什么要问的
 
 菜鸟一面
@@ -97,9 +107,15 @@ vue3.0 的绑定和 vue2.0 的区别
 有哪些跨域的方法
 js 的事件循环
 你知道哪些排序方法，时间复杂度分别是多少
+冒泡排序： O(n2)   快速排序O(nlogn)   插入排序 O(n2) 二分查找 o(logn)
+二叉树遍历 O(n) 归并排序 O(nlogn)    计数排序 O(n+k) 
 树的遍历方式知道吗？  递归，—其他的呢？
+前序遍历：先根节点，然后左子树，然后右子树
+中序遍历：先左子树，再根结点，再右子树
+后序遍历：先左子树再右子树，最后根节点
 setTimeout 和 promise 的参数那个先执行
 catch 和 then 的 第二个参数有什么区别
+主要区别就是，如果在then的第一个函数里抛出了异常，后面的catch能捕获到，而then的第二个函数捕获不到。
 react 的生命周期
 react 的 key、diff
 react 函数式组件 怎么模拟 shouldUpdate ?
