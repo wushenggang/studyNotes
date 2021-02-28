@@ -14,7 +14,7 @@ maximum-scale=1, minimum-scale=1,user-scalable=0> css中的1px并不等于设备
 7,flex-direction   flex-wrap  flex-flow  justify-content  align-items  align-content（定义了多根轴线的对齐方式）
 order  flex-grow（0） flex-shrink（1）  flex-basis（项目占据的主轴空间）  flex  align-self（align-items）
 
-7，块格式化上下文（BFC）1，浮动元素  2，绝对定位元素  3，行内块元素  4，overflow值不为visible的块元素  
+7，块格式化上下文（BFC）BFC是一个独立的布局环境，其中的元素布局是不受外界的影响 1，浮动元素  2，绝对定位元素  3，行内块元素  4，overflow值不为visible的块元素  
 
 8，ES6  let const 箭头函数 Promise  解构赋值 模板字符串 展开操作符(...)  默认参数  import export class extends  Map Set
 解构从数组和对象提取值并赋值给独特的变量    for...of循环 可以循环任何可迭代（也就是遵守可迭代协议）类型的数据。默认情况下，

@@ -64,7 +64,11 @@ ssr以及预渲染
 方法：1，避免使用table布局 2，可以用position:absolute使脱离文档流 3，避免频繁操作样式，可以一次性重写style属性，或者将样式列表定义为 class 并一次性更改 class 属性。
 4，避免频繁操作 DOM，创建一个 documentFragment，在它上面应用所有 DOM 操作，最后再把它添加到文档中。5，扁平化 Store 数据结构
 6，利用Object.freeze()提升性能，冻结一个对象，不会为对象加上 setter getter 等数据劫持的方法
-9，事件委托 10，输入搜索时，可以用防抖debounce等优化方式，减少http请求。11，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
+7，事件委托 8，输入搜索时，可以用防抖debounce等优化方式，减少http请求。9，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
+10，使用Web Workers（主线程之外的线程，但web workers中没有DOM，CSSOM环境，所以无法操作DOM，可以将一些和DOM操作无关且费时的任务放入进行执行）
+主线程采用new命令，调用Worker()构造函数，新建一个 Worker 线程，主线程调用worker.postMessage()方法，向 Worker 发消息，主线程通过worker.onmessage指定监听函数。
+Worker 线程内部需要有一个监听函数，监听message事件
+11，合理利用CSS合成动画, 是直接在合成线程上执行的
 
 页面性能监控：
 通过window.performance.timing来获取各个时间点
