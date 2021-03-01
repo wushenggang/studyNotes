@@ -70,6 +70,7 @@ beforeUpdate  updated beforeDestory destroyed
 
 22,vue组件通信 父——》子 v-bind 绑定父组件来的内容  props接受 子-》父亲 子组件$emit()来触发事件  父 v-on监听子组件事件
 兄弟 new eventHub()  event.$emit() event.$on()   event.$off()
+父调用子方法通过ref
 
 23, vuex 状态管理模式  state 数据源，保存的数据 Getters 类似于vue中的computed属性  mutations英文名改变 定义函数（方法）  action  而是让我们去提交一个actions（dispatch），
 在actions中(dispatch)提交mutation(commit)再去修改状态值      Mutation 必须是同步函数,Action 可以包含任意异步操作
@@ -225,12 +226,7 @@ key是为Vue中的vnode标记的唯一id,通过这个key,我们的diff操作可�
 
 js执行机制，事件循环
 1，js语言是单线程的，前一个任务结束，才会执行后一个任务。有两种任务，一种任务是异步任务，一种是同步任务。
-同步和异步任务分别进入不同的执行"场所"，同步的进入主线程，异步的进入 Event Table 并注册函数。当指定的事情完成时，Event Table 会将这个函数移入 Event Queue。
-主线程内的任务执行完毕为空，会去 Event Queue 读取对应的函数，进入主线程执行。上述过程会不断重复，也就是常说的 Event Loop(事件循环)。
 红任务（setTimeout, setInterval, setImmediate, I/O, UI rendering） 微任务（process.nextTick, Promises, nextTick, MutationObserver）
-JS 异步有一个机制，就是遇到宏任务，先执行宏任务，将宏任务放入 Event Queue，然后再执行微任务，将微任务放入 Event Queue，但是，这两个 Queue 不是一个 Queue。当你往外拿的时候
-先从微任务里拿这个回调函数，然后再从宏任务的 Queue 拿宏任务的回调函数。
-点击了一个元素，不会立刻的执行，但是等到js加载完毕后就会执行刚才点击的操作，能够知道有一个队列记录了所有有待执行的操作，这个队列分为微观和宏观。微观会比宏观执行得更快。
 宏任务 Macrotasks 就是参与了事件循环的异步任务。           微任务 Microtasks 就是没有参与事件循环的“异步”任务。
 
 transform:translate(1px,1px),rotate   transition 简单的动画,一般定义开始，结束两个状态，需要有触发的条件  animation:mymove 5s infinite; 后者有关键帧，速度曲线，播放次数等概念，更符合动画定义，且无需触发条件
@@ -535,6 +531,10 @@ Vue 3升级内容
 1，先在自身属性和方法寻找
 2，如果找不到则自动去__proto__中查找
 
+typeof一般只能返回如下几个结果：
+number,boolean,string,function（函数）,object（NULL,数组，对象）,undefined。
+instanceof用于判断一个变量是否某个对象的实例 数组 instanceof Array为true
+数组 instanceof Object也为true。 因为Array是Object的子类
 
 
 

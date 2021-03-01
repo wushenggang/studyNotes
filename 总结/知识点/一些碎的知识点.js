@@ -61,7 +61,7 @@ ssr以及预渲染
 
 提升页面的性能：
 1，尽量减少页面的重排（回流）
-方法：1，避免使用table布局 2，可以用position:absolute使脱离文档流 3，避免频繁操作样式，可以一次性重写style属性，或者将样式列表定义为 class 并一次性更改 class 属性。
+方法：1，避免使用table布局 2，可以用position: absolute使脱离文档流 3，避免频繁操作样式，可以一次性重写style属性，或者将样式列表定义为 class 并一次性更改 class 属性。
 4，避免频繁操作 DOM，创建一个 documentFragment，在它上面应用所有 DOM 操作，最后再把它添加到文档中。5，扁平化 Store 数据结构
 6，利用Object.freeze()提升性能，冻结一个对象，不会为对象加上 setter getter 等数据劫持的方法
 7，事件委托 8，输入搜索时，可以用防抖debounce等优化方式，减少http请求。9，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
@@ -73,7 +73,7 @@ Worker 线程内部需要有一个监听函数，监听message事件
 页面性能监控：
 通过window.performance.timing来获取各个时间点
 navigationStart: 输入网址按下回车键的时间
-fetchStart:相当于浏览器准备好使用 HTTP 请求获取文档的时间
+fetchStart: 相当于浏览器准备好使用 HTTP 请求获取文档的时间
 第一字节时间： t.responseStart - t.navigationStart;
 白屏时间：(t.domInteractive || t.domLoading) - t.fetchStart
 首屏时间：t.domContentLoadedEventEnd - t.fetchStart;
@@ -86,6 +86,26 @@ navigator.sendBeacon(url, data)方法。这个方法可以用来发送一些统�
 该方法不会阻塞页面卸载流程和延迟后面页面的加载。监听页面unload，在unload时发送请求。
 降级方案，通过在unload事件处理器中，通过img.src中在地址后面拼接参数达到目标。
 因为绝大多数浏览器会延迟卸载以保证图片的载入，所以数据可以在卸载事件中发送。
+
+
+nextTick原理：
+Vue 使用了 nextTick 进行统一更新
+假如一个数据被页面引用，该数据会被收集到该页面的 watcher
+当该数据被修改时，会通知所有收集到的watcher进行更新（watcher.update）
+但数据一时间被修改三次时，按道理应该会通知三次 watcher 更新，那么页面会更新三次
+但是最后只会更新一次，why？
+当数据变化后，把 watcher.update  函数存放进 nextTick 的 回调数组中，并且会做过滤。通过 watcher.id 来判断 回调数组 中是否已经存在这个 watcher 的更新函数，
+不存在才 push，之后 nextTick 遍历回调数组，便会执行了更新。这里还有一个能力检测。在浏览器支持的情况下，优先使用微任务。如果浏览器不支持微任务，使用宏任务。
+先promise，再MutationObserver, 再setImmediate, 再setTimeout
+所以，不管你修改多少次数据，nextTick 的回调数组中只存在唯一一个 watcher.update，从而页面只会更新一次
+
+pv: 访问量, 即页面浏览量或点击量  uv: 独立访客
+
+判断对象还是数组：Object.prototype.toString.call([]) === "[object Array]"
+Object.prototype.toString.call({ a: 1 }) === "[object Object]"    Array.isArray()
+obj.toString()的结果和Object.prototype.toString.call(obj)的结果不一样，这是为什么？
+这是因为toString为Object的原型方法，而Array 、Function等类型作为Object的实例，都重写了toString方法。不同的对象类型调用toString方法时，
+根据原型链的知识，调用的是对应的重写之后的toString方法
 
 
 slot    vue.mixin

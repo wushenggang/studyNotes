@@ -6,6 +6,19 @@
 
 实现方式：每次触发事件时设置一个延迟调用方法，并且取消之前的延时调用方法
 缺点：如果事件在规定的时间间隔内被不断的触发，则调用方法会被不断的延迟
+应用场景：
+搜索框搜索输入。只需用户最后一次输入完，再发送请求
+手机号、邮箱验证输入检测
+窗口大小Resize。只需窗口调整完成后，计算窗口大小。防止重复渲染。
+
+
+const _debounce = (func, wait) => {
+  let timer = null;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(func, wait);
+  };
+};
 
 
 //防抖debounce代码：
@@ -32,6 +45,10 @@ window.addEventListener('scroll', debounce(handle, 500));
 2、函数节流(throttle)
 
 实现方式：每次触发事件时，如果当前有等待执行的延时函数，则直接return
+应用场景：
+滚动加载，加载更多或滚到底部监听
+谷歌搜索框，搜索联想功能
+高频点击提交，表单重复提交
 
 //节流throttle代码：
 function throttle(fn, delay) {
@@ -50,6 +67,33 @@ function throttle(fn, delay) {
     }, delay);
   };
 }
+
+const throttle = (func, wait) => {
+  let timer;
+
+  return () => {
+    if (timer) {
+      return;
+    }
+
+    timer = setTimeout(() => {
+      func();
+      timer = null;
+    }, wait);
+  };
+};
+
+
+const throttle = (func, wait) => {
+  let last = 0;
+  return () => {
+    const current_time = +new Date();
+    if (current_time - last > wait) {
+      func.apply(this, arguments);
+      last = +new Date();
+    }
+  };
+};
 
 function sayHi(e) {
   console.log('节流：', e.target.innerWidth, e.target.innerHeight);
