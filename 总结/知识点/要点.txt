@@ -143,10 +143,6 @@ ios下fixed元素容易定位出错，软键盘弹出时，影响fixed元素定�
 
 C端表现地更五彩一点
 
-ES6新特性  let const 箭头函数 Promise  解构赋值 模板字符串 展开操作符(...)  默认参数  import export class extends  Map Set
-解构从数组和对象提取值并赋值给独特的变量    for...of循环 可以循环任何可迭代（也就是遵守可迭代协议）类型的数据。默认情况下，
-包含以下数据类型：String、Array、Map 和 Set
-
 v-for  v-bind  v-if v-else v-elseif  v-show和v-if的区别：v-show是通过css样式控制显示或者隐藏，v-if则是通过dom节点的删除增加来
 v-on 标签内绑定事件  全局api Vue.set(data,'sex', '男')   Vue.delete Vue.component(注册全局组件)  Vue.use(vuex)  实例的属性和方法  
 this.$emit  $on $nextTick $once
@@ -342,7 +338,38 @@ $nextTIck
 slot
 基本使用
 作用域插槽
+让插槽内容能够访问子组件中才有的数据
+子组件通过v-bind进行绑定，
+现在在父级作用域中，我们可以使用带值的 v-slot 来定义我们提供的插槽 prop 的名字
+
 具名插槽
+<div class="container">
+  <header>
+    <slot name="header"></slot>
+  </header>
+  <main>
+    <slot></slot>
+  </main>
+  <footer>
+    <slot name="footer"></slot>
+  </footer>
+</div>
+
+
+<base-layout>
+  <template v-slot:header>
+    <h1>Here might be a page title</h1>
+  </template>
+
+  <p>A paragraph for the main content.</p>
+  <p>And another one.</p>
+
+  <template v-slot:footer>
+    <p>Here's some contact info</p>
+  </template>
+</base-layout>
+
+
 
 动态组件
 1， :is="component-name" 用法
@@ -350,12 +377,16 @@ slot
 <div v-for="(val,key) in newsData" :key="key">
 	<component :is="val.type"/>	
 </div>
+对于:is=‘current’来说，总的流程如下：
+去vue实例的data里找到current对应的值
+用这个值再去所有的component里找到对应的component
 
 vue如何异步加载组件
 components:{
 	FormDemo:() => {import('./FormDemo')}
 }
 
+多个组件有相同的逻辑，如何抽离
 mixin
 1,多个组件有相同的逻辑，抽离出来
 2，mixin并不是完美的解决方案，会有一些问题
@@ -365,11 +396,11 @@ mixin的问题
 1，变量来源不明确，不利于阅读
 2，多mixin可能会造成命名冲突
 3，mixin和组件可能出现多对对多的关系，复杂度高
+4，方法和参数在各组件中不共享
+5，methods中的方法被重复定义的话。会覆盖掉mixin组件中的方法，执行自身模板的方法
+6，created和mounted中若都执行了操作，先执行mixin组件中的操作，再执行本身模板中的操作
 
 vuex中的异步操作都在Actions中做
-
-MVVM
-数据驱动视图  Model View viewMode
 
 Object.defineProperty的缺点
 1，深度监听，需要递归到底，一次性计算量大
@@ -398,10 +429,6 @@ v-show 和 v-if的区别
 1,单组件生命周期图
 2，父子组件生命周期关系
 
-Vue组件如何通讯
-1，父子组件 props 和 this.$emit() this.$on()
-2,自定义事件 event.$on()  event.$off() event.$emit()
-3,vuex
 
 描述组件渲染和更新的过程
 初次渲染过程
@@ -420,9 +447,6 @@ Vue组件如何通讯
 2,绑定input事件 this.name = $event.target.value
 3,data更新触发re-render
 
-对MVVM的理解
-1，model view modelView 数据驱动视图
-
 computed有何特点
 1,缓存，data不变不会重新计算
 2，提高性能
@@ -430,13 +454,6 @@ computed有何特点
 如何将组件所有props传递给子组件
 1，$props
 2,<User v-bind="$props" />
-
-多个组件有相同的逻辑，如何抽离
-mixin
-mixin的缺点
-1，变量来源不明确，不利于阅读
-2，多mixin可能会造成命名冲突
-3，mixin和组件可能出现多对多的关系，复杂度较高
 
 何时使用异步组件
 1，加载大组件

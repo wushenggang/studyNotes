@@ -1,6 +1,15 @@
 教育部门
 一面：
 实现一个Sum函数 sum(1, 2, 3) //6， sum(1)(2,3)  // 6 
+let sumT = (arg) => {
+  let y = arg
+  return (arg1, arg2) => {
+    y += arg1 + arg2
+    return y
+  }
+}
+
+let sumT = arg => (arg1, arg2) => arg += arg1 + arg2
 一个字符串不重复的最长子序列
 vue3.0 有什么值得注意的地方(不要求讲API)
 requestAnimationFrame 的实现机制，以及需要注意的地方
