@@ -31,6 +31,37 @@ WebSocket: 服务器可以主动向客户端推送信息，客户端也可以主
 Promise:
 Promise.all可以将多个Promise实例包装成一个新的Promise实例。同时，成功和失败的返回值是不同的，成功的时候返回的是一个结果数组，而失败的时候则返回最先被reject失败状态的值。
 Promise.race([p1, p2, p3])里面哪个结果获得的快，就返回那个结果，不管结果本身是成功状态还是失败状态。
+function sendRequest(arr, max, callback) {
+  let fetchArr = [],  // 存储并发max的promise数组
+    i = 0;
+
+  function toFetch() {
+    if (i === arr.length) {   // 所有的都处理完了， 返回一个resolve
+      return Promise.resolve();
+    }
+
+    let one = fetch(arr[i++]); // 取出第i个url， 放入fetch里面 , 每取一次i++
+    fetchArr.push(one);  //将当前的promise存入并发数组中       其实将这个push放到上一行会更好理解，那样就是我们同步的思维顺序，先push进去，再等promise执行完了之后再删除。  但由于then是异步的，所以怎么放都可以。            
+    one.then(() => { fetchArr.splice(fetchArr.indexOf(one), 1) }); // 当promise执行完毕后，从数组删除
+
+    let p = Promise.resolve();
+    if (fetchArr.length >= max) {     // 当并行数量达到最大后， 用race比较 第一个完成的， 然后再调用一下函数自身。
+      p = Promise.race(fetchArr);
+    }
+    return p.then(() => toFetch());
+  }
+
+  // arr循环完后， 现在fetchArr里面剩下最后max个promise对象， 使用all等待所有的都完成之后执行callback
+  toFetch().then(() => Promise.all(fetchArr)).then(() => {
+    callback();
+  })
+}
+
+
+
+
+
+
 
 Generator函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）
 可以这么理解，这个函数自己执行不了，得让别人帮忙执行，每next() ，走一步。函数用 * 来定义，函数里面会有一个yield，把函数截成不同的状态；
