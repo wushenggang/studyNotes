@@ -34,7 +34,8 @@ Vue中的DOM - Diff
 
 
 更新子节点：
-我们把newChildren里面的元素与oldChildren里的元素一一进行对比，对比两个子节点数组肯定是要通过循环，外层循环newChildren数组，内层循环oldChildren数组，每循环外层newChildren数组里的一个子节点，就去内层oldChildren数组里找看有没有与之相同的子节点，伪代码如下：
+我们把新的VNode上的子节点数组记为newChildren，把旧的oldVNode上的子节点数组记为oldChildren
+我们把newChildren里面的元素与oldChildren里的元素一一进行对比，外层循环newChildren数组，内层循环oldChildren数组，每循环外层newChildren数组里的一个子节点，就去内层oldChildren数组里找看有没有与之相同的子节点，伪代码如下：
 有以下四种情况：
 创建子节点：
 如果newChildren里面的某个子节点在oldChildren里找不到与之相同的子节点，那么说明newChildren里面的这个子节点是之前没有的，是需要此次新增的节点，那么就创建子节点（合适的位置是所有未处理节点之前）
@@ -48,7 +49,7 @@ Vue中的DOM - Diff
 更新节点：
 如果newChildren里面的某个子节点在oldChildren里找到了与之相同的子节点，并且所处的位置也相同，那么就更新oldChildren里该节点，使之与newChildren里的该节点相同。
 
-
+当包含的子节点数量很多时，这样循环算法的时间复杂度就会变的很大，不利于性能提升。Vue进行了优化
 优化策略介绍：
 比较两个数组里特殊位置的子节点：
 先把newChildren数组里的所有未处理子节点的第一个子节点和oldChildren数组里所有未处理子节点的第一个子节点做比对，如果相同，那就直接进入更新节点的操作；节点均向后移动一个位置
