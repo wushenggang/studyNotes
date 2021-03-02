@@ -158,9 +158,17 @@ module.exports = fs
 babel 的原理
 项目是怎么发布上去的
 当项目的用户很多的时候，怎么监控 错误？
+首先后端有各种强大的监控服务，但大多都是记录接口被请求后所发生的错误。
 成熟的监控系统，例如Sentry
 采集、处理、分析、报警
-通过监听全局的 window.onerror 事件捕获到运行时错误，然后上报到采集端，再做一个页面展示数据
+通过监听全局的 window.onerror 事件捕获到运行时错误（错误信息，发生错误的文件，发生错误的行号），然后上报到采集端，再做一个页面展示数据
+重写console.error方法：
+如果App首次向浏览器注入的Js代码报错了，window.onerror是无法监控到的，所以只能重写console.error的方式来进行捕获
+重写window.onunhandledrejection方法
+当你用到Promise的时候，而你又忘记写reject的捕获方法的时候，系统总是会抛出一个叫 Unhandled Promise rejection.没有堆栈，没有其他信息，特别是在写fetch请求的时候很容易发生。 所以我们需要重写这个方法，以帮助我们监控此类错误
+
+
+1，某种错误发生的次数 2，设备信息
 https://zhuanlan.zhihu.com/p/32262716
 还有什么要问的
 
