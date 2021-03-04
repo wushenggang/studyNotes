@@ -77,7 +77,17 @@ images.forEach((img) => {
 
 
 如何提高页面的性能（如何减少请求数？）
-工作中遇到的最难的问题
+工作中遇到的最难的问题：
+webpack4才有，生产环境中用。
+mini - css - extract - plugin：将css单独打包成一个文件的插件，它为每个包含css的js文件都创建一个css文件。它支持css和sourceMaps的按需加载。
+
+我们使用了 Mini CSS Extract Plugin 过后，样式就被提取到单独的 CSS 文件中了，但发现了一个问题，发现 JavaScript 文件正常被压缩了，而样式文件并没有被压缩。
+后来发现这是因为，Webpack 内置的压缩插件仅仅是针对 JS 文件的压缩，其他资源文件的压缩都需要额外的插件。后来找到一个 Optimize CSS Assets Webpack Plugin 插件。可以使用这个插件来压缩我们的样式文件。
+导入这个插件，导入完成以后我们把这个插件添加到  optimization 对象中的 minimizer 属性中（如果我们配置到 plugins 属性中，那么这个插件在任何情况下都会工作。而配置到 minimizer 中，就只会在 minimize 特性开启时才工作）。
+这个时候打包发现原本压缩的js代码又不压缩了。那这是因为我们设置了 minimizer，Webpack 认为我们需要使用自定义压缩器插件，那内部的 JS 压缩器就会被覆盖掉。我们必须手动再添加回来。
+内置的 JS 压缩插件叫作 terser - webpack - plugin，我们回到命令行手动安装一下这个模块。安装完成过后，这里我们再手动添加这个模块到 minimizer 配置当中。
+
+
 diff算法
 如何优化老代码
 rem
