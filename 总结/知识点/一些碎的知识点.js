@@ -79,27 +79,29 @@ async、await是Generator函数的语法糖，原理是通过Generator函数加�
 
 
 浏览器内核
-IE: Trident, firefox: Gecko, Safari: webkit, chrome: chromium / Blink(其实是Webkit的分支), Opera: blink
+IE: Trident, firefox: Gecko, Safari: webkit, chrome: 以前是Webkit内核，现在是Blink内核(其实是Webkit的分支), Opera: blink
 
 关于vue的一些面试题：https://blog.csdn.net/weixin_42554191/article/details/104830168
 
 ssr以及预渲染
 
 提升首页加载速度：
-1，路由懒加载 2，打包文件去掉map文件 3，很多第三方库可以按需引用。如果不能按需引用，可以采用cdn外部加载  4，gzip压缩，通过减小文件体积来提高加载速度
-5, 图片懒加载  6，减少关键资源的数量和大小（删除不必要的注释和GZIP压缩） 7，通过给script标记async或者defer来异步加载js文件
-8，利用服务端ssr和预渲染
+1，路由懒加载 2，打包文件去掉map文件 3，很多第三方库可以按需引用。如果不能按需引用，可以采用cdn外部加载
+4, 图片懒加载  5，减少关键资源的数量和大小（删除不必要的注释和GZIP压缩） 6，通过给script标记async或者defer来异步加载js文件
+7，利用服务端ssr(有利于SEO和首屏渲染)和预渲染   前者是服务端将页面给浏览器，后者是直接构建出页面给浏览器
 
 提升页面的性能：
 1，尽量减少页面的重排（回流）
 方法：1，避免使用table布局 2，可以用position: absolute使脱离文档流 3，避免频繁操作样式，可以一次性重写style属性，或者将样式列表定义为 class 并一次性更改 class 属性。
-4，避免频繁操作 DOM，创建一个 documentFragment，在它上面应用所有 DOM 操作，最后再把它添加到文档中。5，扁平化 Store 数据结构
-6，利用Object.freeze()提升性能，冻结一个对象，不会为对象加上 setter getter 等数据劫持的方法
-7，事件委托 8，输入搜索时，可以用防抖debounce等优化方式，减少http请求。9，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
-10，使用Web Workers（主线程之外的线程，但web workers中没有DOM，CSSOM环境，所以无法操作DOM，可以将一些和DOM操作无关且费时的任务放入进行执行）
-主线程采用new命令，调用Worker()构造函数，新建一个 Worker 线程，主线程调用worker.postMessage()方法，向 Worker 发消息，主线程通过worker.onmessage指定监听函数。
+4，避免频繁操作 DOM，创建一个 documentFragment（文档片段），在它上面应用所有 DOM 操作，最后再把它添加到文档中。
+
+2，扁平化 Store 数据结构
+3，利用Object.freeze()提升性能，冻结一个对象，不会为对象加上 setter getter 等数据劫持的方法
+4，事件委托 5，输入搜索时，可以用防抖debounce等优化方式，减少http请求。9，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
+6，使用Web Workers（主线程之外的线程，但web workers中没有DOM，CSSOM环境，所以无法操作DOM，可以将一些和DOM操作无关且费时的任务放入进行执行）
+主线程采用new命令，调用Worker('work.js')构造函数，新建一个 Worker 线程，主线程调用worker.postMessage()方法，向 Worker 发消息，主线程通过worker.onmessage指定监听函数。
 Worker 线程内部需要有一个监听函数，监听message事件
-11，合理利用CSS合成动画, 是直接在合成线程上执行的
+// 7，合理利用CSS合成动画, 是直接在合成线程上执行的
 
 页面性能监控：
 通过window.performance.timing来获取各个时间点
