@@ -555,6 +555,9 @@ number,boolean,string,function（函数）,object（NULL,数组，对象）,unde
 instanceof用于判断一个变量是否某个对象的实例 数组 instanceof Array为true
 数组 instanceof Object也为true。 因为Array是Object的子类
 
+this的最终指向的是那个调用它的对象
+判断上一级作用域：不是看函数在哪里调用，而是看函数在哪里编写（函数声明的位置）。
+
 
 
 
