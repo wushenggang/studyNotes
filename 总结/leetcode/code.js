@@ -554,3 +554,148 @@ var isValidSudoku = function (board) {
   return true;
 };
 
+37 解数独（困难，暂不研究）
+
+69 x的平方根
+二分查找 O(logN)
+const mySqrt = (x) => {
+  if (x<2) return x;
+  let left = 1;
+  let right = x;
+  while(left + 1 < right) {
+    let mid = (left + right) >>> 1
+    if (mid === x / mid) {
+      return mid
+    } else if(x < mid*mid) {
+      right = mid
+    } else {
+      left = mid
+    }
+  }
+  return right*right > x ? left : right
+}
+
+const mySqrt = (x,y) => {
+    let left = 0;
+    let right = x;
+    while(left <= right) {
+        let mid = (left + right) >>> 1
+        if (mid === x/mid) {
+            return mid
+        } else if (mid*mid > x) {
+            right = mid
+        } else {
+            left = mid
+        }
+        if (right-left < y) {
+            return mid
+        }
+    }
+}
+
+
+208 实现一个字典树（暂没研究）
+
+class Trie {
+  constructor() {
+    this.root = Object.create(null)
+  }
+  insert(word) {
+    let node = this.root
+    for (const c of word) {
+      if (!node[c]) node[c] = Object.create(null)
+      node = node[c]
+    }
+    node.isWord = true
+  }
+  traverse(word) {
+    let node = this.root
+    for (const c of word) {
+      node = node[c]
+      if (!node) return null
+    }
+    return node
+  }
+  search(word) {
+    const node = this.traverse(word)
+    return !!node && !!node.isWord
+  }
+  startsWith(prefix) {
+    return !!this.traverse(prefix)
+  }
+}
+
+212 单词搜索II（困难，暂不研究）
+
+位运算：
+x&1 === 1 or  == 0 判断奇偶(x%2==1)
+x=x&(x-1)  清零最低位的1
+x&-x  得到最低位的1
+
+191 位1的个数
+
+var hammingWeight = (n) => {
+  let count = 0
+  while(n!==0) {
+    n = n & (n-1)
+    count++
+  }
+  return count
+}
+
+var hammingWeight = (n) => {
+    return n.toString(2).replace(/0/g, '').length
+}
+
+231 2的幂   判断一个整数是否是2的幂次方
+
+// 大于零且二进制位中只有一个1
+var isPowerOfTwo = function(n) {
+  return n > 0 && (n & (n-1))s === 0
+}
+
+
+var isPowerOfTwo = function(n) {
+  while(n > 1){
+      n /= 2;
+  }
+  if(n == 1){
+      return true;
+  }else{
+      return false;
+  }
+};   
+
+
+338 比特位计数
+
+var countBits = function(num) {
+    let result = []
+    let n = 0
+    while(n<=num) {
+        let count = 0;
+        let y = n
+        while(y!==0) {
+            y = y & (y-1)
+            count++
+        }
+        result.push(count)
+        n++
+    }
+    return result
+};
+
+
+70 爬楼梯 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+有n个台阶
+dp[n] 到第n阶的总走法个数
+
+var climbStairs = function(n) {
+    let dp = []
+    dp[0] = 1
+    dp[1] = 1
+    for(let i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2]
+    }
+    return dp[n] 
+};
