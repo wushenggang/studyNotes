@@ -326,6 +326,7 @@ vue3.0 的绑定和 vue2.0 的区别
 2，使用window.postMessage方法来跨域（window.onmessage来接收）
 4，使用跨域资源共享（CORS）来跨域，服务器设置Access - Control - Allow - Origin HTTP响应头之后，浏览器将会允许跨域请求．
 5，使用webSocket来跨域
+6, Vue - cli中通过配置Proxy
 
 js 的事件循环
 你知道哪些排序方法，时间复杂度分别是多少

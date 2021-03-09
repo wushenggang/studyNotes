@@ -25,3 +25,10 @@ function c(arg1, arg2, arg3) {
 c()
 c.call(a)
 c.call1(a, 1, 2, 3)
+
+Function.prototype.call2 = function () {
+  let t = [...arguments][0]
+  let args = [...arguments].slice(1)
+  let self = this;
+  return self.apply(t, args)
+}

@@ -12,4 +12,6 @@ const myInstanceof = function (left, right) {
   }
 }
 
+a instanceof Object
+
 console.log(myInstanceof({}, { b: 1 }))
