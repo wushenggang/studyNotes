@@ -559,38 +559,38 @@ var isValidSudoku = function (board) {
 69 x的平方根
 二分查找 O(logN)
 const mySqrt = (x) => {
-  if (x<2) return x;
+  if (x < 2) return x;
   let left = 1;
   let right = x;
-  while(left + 1 < right) {
+  while (left + 1 < right) {
     let mid = (left + right) >>> 1
     if (mid === x / mid) {
       return mid
-    } else if(x < mid*mid) {
+    } else if (x < mid * mid) {
       right = mid
     } else {
       left = mid
     }
   }
-  return right*right > x ? left : right
+  return right * right > x ? left : right
 }
 
-const mySqrt = (x,y) => {
-    let left = 0;
-    let right = x;
-    while(left <= right) {
-        let mid = (left + right) >>> 1
-        if (mid === x/mid) {
-            return mid
-        } else if (mid*mid > x) {
-            right = mid
-        } else {
-            left = mid
-        }
-        if (right-left < y) {
-            return mid
-        }
+const mySqrt = (x, y) => {
+  let left = 0;
+  let right = x;
+  while (left <= right) {
+    let mid = (left + right) >>> 1
+    if (mid === x / mid) {
+      return mid
+    } else if (mid * mid > x) {
+      right = mid
+    } else {
+      left = mid
     }
+    if (right - left < y) {
+      return mid
+    }
+  }
 }
 
 
@@ -628,61 +628,61 @@ class Trie {
 212 单词搜索II（困难，暂不研究）
 
 位运算：
-x&1 === 1 or  == 0 判断奇偶(x%2==1)
-x=x&(x-1)  清零最低位的1
-x&-x  得到最低位的1
+x & 1 === 1 or == 0 判断奇偶(x % 2 == 1)
+x = x & (x - 1)  清零最低位的1
+x & -x  得到最低位的1
 
 191 位1的个数
 
 var hammingWeight = (n) => {
   let count = 0
-  while(n!==0) {
-    n = n & (n-1)
+  while (n !== 0) {
+    n = n & (n - 1)
     count++
   }
   return count
 }
 
 var hammingWeight = (n) => {
-    return n.toString(2).replace(/0/g, '').length
+  return n.toString(2).replace(/0/g, '').length
 }
 
 231 2的幂   判断一个整数是否是2的幂次方
 
 // 大于零且二进制位中只有一个1
-var isPowerOfTwo = function(n) {
-  return n > 0 && (n & (n-1))s === 0
+var isPowerOfTwo = function (n) {
+  return n > 0 && (n & (n - 1))s === 0
 }
 
 
-var isPowerOfTwo = function(n) {
-  while(n > 1){
-      n /= 2;
+var isPowerOfTwo = function (n) {
+  while (n > 1) {
+    n /= 2;
   }
-  if(n == 1){
-      return true;
-  }else{
-      return false;
+  if (n == 1) {
+    return true;
+  } else {
+    return false;
   }
-};   
+};
 
 
 338 比特位计数
 
-var countBits = function(num) {
-    let result = []
-    let n = 0
-    while(n<=num) {
-        let count = 0;
-        let y = n
-        while(y!==0) {
-            y = y & (y-1)
-            count++
-        }
-        result.push(count)
-        n++
+var countBits = function (num) {
+  let result = []
+  let n = 0
+  while (n <= num) {
+    let count = 0;
+    let y = n
+    while (y !== 0) {
+      y = y & (y - 1)
+      count++
     }
-    return result
+    result.push(count)
+    n++
+  }
+  return result
 };
 
 
@@ -690,12 +690,33 @@ var countBits = function(num) {
 有n个台阶
 dp[n] 到第n阶的总走法个数
 
-var climbStairs = function(n) {
-    let dp = []
-    dp[0] = 1
-    dp[1] = 1
-    for(let i = 2; i <= n; i++) {
-        dp[i] = dp[i-1] + dp[i-2]
-    }
-    return dp[n] 
+var climbStairs = function (n) {
+  let dp = []
+  dp[0] = 1
+  dp[1] = 1
+  for (let i = 2; i <= n; i++) {
+    dp[i] = dp[i - 1] + dp[i - 2]
+  }
+  return dp[n]
 };
+
+120  三角形最小路径和   给定一个三角形 triangle ，找出自顶向下的最小路径和。
+dp[i][j]代表到这个位置的最小路径和
+
+var minimumTotal = function (triangle) {
+  let h = triangle.length;
+  let dp = new Array(h)
+  for (let i = 0; i < h; i++) {
+    dp[i] = new Array(triangle[i].length)
+  }
+  for (let i = h - 1; i >= 0; i--) {
+    for (let j = 0; j < triangle[i].length; j++) {
+      if (i === h - 1) {
+        dp[i][j] = triangle[i][j]
+      } else {
+        dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]
+      }
+    }
+  }
+  return dp[0][0]
+}
