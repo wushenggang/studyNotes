@@ -46,6 +46,13 @@ pushState 配合 popstate 监听。但因为没有 # 号，所以当用户刷新
 所以这个实现需要服务器的支持，需要把所有路由都重定向到根页面。
 
 vue - router实现原理: 我们需要对current.route做数据劫持。一旦current.route更新，我们可以及时的更新当前页面(https://zhuanlan.zhihu.com/p/37730038)
+  首先通过Vue.use安装vue - router，会去调用vue - router中的install方法，在vue - router的install方法中会
+通过Vue.mixin()向所有组件混淆进beforeCreate。在beforeCreate钩子函数中，用Vue的defineReactive方法把 _route（传入的router） 变成响应式对象。
+  然后给Vue的原型上挂载了两个对象属性 $router 和 $route。这样所有组件实例可以通过访问this.$router和this.$route来访问。
+
+  （this.$router 是路由实例，对外暴露了像this.$router.push、
+  this.$router.replace等很多api方法，this.$route包含了当前路由的所有信息。）
+  后面通过 Vue.component 方法定义了全局的 < router - link > 和 < router - view > 两个组件。最后定义了路由守卫的合并策略，采用了Vue的合并策略。
 
   vuex的使用
 父传子，子传父的用法
