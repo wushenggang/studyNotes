@@ -123,8 +123,9 @@ navigator.sendBeacon(url, data)方法。这个方法可以用来发送一些统�
 
 nextTick原理：
 Vue 使用了 nextTick 进行统一更新
-假如一个数据被页面引用，该数据会被收集到该页面的 watcher
-当该数据被修改时，会通知所有收集到的watcher进行更新（watcher.update）
+// 假如一个数据被页面引用，该数据会被收集到该页面的 watcher
+// 当该数据被修改时，会通知所有收集到的watcher进行更新（watcher.update）
+当一个数据被页面引用，我们给每个数据都建一个依赖数组。当数据变化时，就把每个依赖通知一遍。让他们进行更新，依赖就是watcher实例。
 但数据一时间被修改三次时，按道理应该会通知三次 watcher 更新，那么页面会更新三次
 但是最后只会更新一次，why？
 当数据变化后，把 watcher.update  函数存放进 nextTick 的 回调数组中，并且会做过滤。通过 watcher.id 来判断 回调数组 中是否已经存在这个 watcher 的更新函数，

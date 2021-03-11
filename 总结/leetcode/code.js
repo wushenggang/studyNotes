@@ -828,3 +828,37 @@ var minDistance = function (word1, word2) {
   }
   return dp[n1][n2];
 };
+
+
+200 岛屿的数量
+DFS
+遍历所有的点，遇到为1的点，将它以及其四周的点都清为0。直到遇到边界或者为0的点。这个时候岛屿数 + 1
+
+var numIslands = function (grid) {
+  let res = 0
+  let rows = grid.length;
+  if (rows === 0) return 0
+  let cols = grid[0].length;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (grid[i][j] === '1') {
+        helper(grid, i, j, rows, cols)
+        res++
+      }
+    }
+  }
+  return res;
+}
+
+
+function helper(grid, i, j, rows, cols) {
+  if (i < 0 || j < 0 || i > rows - 1 || j > cols - 1 || grid[i][j] === '0') return;
+  grid[i][j] = '0'
+  helper(grid, i - 1, j, rows, cols)
+  helper(grid, i, j - 1, rows, cols)
+  helper(grid, i + 1, j, rows, cols)
+  helper(grid, i, j + 1, rows, cols)
+}
+
+
+547 省份的数量（待研究）
