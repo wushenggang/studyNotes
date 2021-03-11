@@ -720,3 +720,111 @@ var minimumTotal = function (triangle) {
   }
   return dp[0][0]
 }
+
+
+152 乘积最大子数组
+给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组
+（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
+时间复杂度 O(n)
+
+
+var maxProduct = function (nums) {
+  // dp[i]表示以nums[i]结尾的连续子数组的最大乘积
+  // dp[i] = Math.max(nums[i], nums[i] * F(i-1)), F(i)表示以nums[i]结尾的某序列的乘积
+  // if (nums[i] < 0) 希望F(i-1)越小越好
+  // if (nums[i] > 0) 希望F(i-1)越大越好
+  // 定义 dp_max[i] 表示以nums[i]结尾的连续子数组最大乘积
+  // 定义 dp_min[i] 表示以nums[i]结尾的连续子数组最小乘积
+  let maxMul = -Infinity;
+  const dp_max = Array(nums.length);
+  const dp_min = Array(nums.length);
+  for (let i = 0; i < nums.length; i++) {
+    if (i === 0) {
+      dp_max[i] = dp_min[i] = nums[i];
+    } else {
+      if (nums[i] === 0) {
+        dp_max[i] = dp_min[i] = 0;
+      } else if (nums[i] > 0) {
+        dp_max[i] = Math.max(nums[i], nums[i] * dp_max[i - 1]);
+        dp_min[i] = Math.min(nums[i], nums[i] * dp_min[i - 1]);
+      } else {
+        dp_max[i] = Math.max(nums[i], nums[i] * dp_min[i - 1]);
+        dp_min[i] = Math.min(nums[i], nums[i] * dp_max[i - 1]);
+      }
+    }
+  }
+  // console.log(dp_max);
+  // console.log(dp_min);
+  return Math.max.apply(this, dp_max);
+};
+
+
+300 最长递增子序列
+给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
+
+dp[i] 表示以 nums[i] 结尾的最长上升子序列；
+var lengthOfLIS = (nums) => {
+  let len = nums.length;
+  if (!len) return 0;
+  let dp = new Array(nums.length).fill(1)
+  for (let i = 0; i < len; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        dp[i] = Math.max(dp[i], dp[j] + 1)
+      }
+    }
+  }
+  return Math.max(...dp)
+}
+
+
+322 零钱兑换
+dp[i]: 表示总金额为 i 的时候最优解法的硬币数
+
+var coinChange = function (coins, amount) {
+  let dp = new Array(amount + 1).fill(Infinity)
+  dp[0] = 0
+  for (let i = 0; i <= amount; i++) {
+    for (let coin of coins) {
+      if (i >= coin) {
+        dp[i] = Math.min(dp[i], dp[i - coin] + 1)
+      }
+    }
+  }
+  return dp[amount] === Infinity ? -1 : dp[amount]
+}
+
+72  编辑距离
+给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。 插入，删除和替换操作
+
+定义 dp[i][j]的含义为：当字符串 word1 的长度为 i，字符串 word2 的长度为 j 时，
+将 word1 转化为 word2 所使用的最少操作次数为 dp[i][j]
+
+var minDistance = function (word1, word2) {
+  let n1 = word1.length;
+  let n2 = word2.length;
+  let dp = new Array(n1 + 1)
+  for (let i = 0; i < n1 + 1; i++) {
+    dp[i] = new Array(n2 + 1).fill(0)
+  }
+  // dp[0][0...n2]的初始值
+  for (let j = 1; j <= n2; j++) {
+    dp[0][j] = dp[0][j - 1] + 1;
+  }
+  // dp[0...n1][0] 的初始值
+  for (let i = 1; i <= n1; i++) {
+    dp[i][0] = dp[i - 1][0] + 1;
+  }
+  // 通过公式推出 dp[n1][n2]
+  for (let i = 1; i <= n1; i++) {
+    for (let j = 1; j <= n2; j++) {
+      // 如果 word1[i] 与 word2[j] 相等。第 i 个字符对应下标是 i-1
+      if (word1[i - 1] == word2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i][j - 1], dp[i - 1][j]) + 1;
+      }
+    }
+  }
+  return dp[n1][n2];
+};
