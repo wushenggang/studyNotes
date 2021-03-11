@@ -56,6 +56,10 @@ order  flex-grow（0） flex-shrink（1）  flex-basis（项目占据的主轴�
 Cookie 一般最大 4k，LocalStorage 可以用 5Mb 甚至 10Mb（各浏览器不同）
 Cookie 存在浏览器的文件里，Session 存在服务器的文件里
 Session 是基于 Cookie 实现的，具体做法就是把 SessionID 存在 Cookie 里
+浏览器第一次访问服务器会在服务器端生成一个 session，有一个 sessionID 和它对应,
+将seessionId返回给浏览器，并保存到cookie中。
+客户端用cookie保存了sessionID，当我们请求服务器的时候，会把这个sessionID一起发给服务器，
+服务器会到内存中搜索对应的sessionID，如果找到了对应的 sessionID，说明我们处于登录状态
 
 
 VUE
