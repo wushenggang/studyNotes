@@ -344,7 +344,7 @@ var majorityElement = function (nums) {
 
 let maxProfit = (prices) => {
   let profit = 0
-  for (let i = 0; i < prices.length; i++) {
+  for (let i = 1; i < prices.length; i++) {
     if (prices[i] > prices[i - 1]) {
       profit += prices[i] - prices[i - 1]
     }
@@ -540,7 +540,7 @@ var isValidSudoku = function (board) {
       let num = board[i][j];
       if (num != '.') {
         // 子数独序号
-        let boxIndex = parseInt((i / 3)) * 3 + parseInt(j / 3);
+        let boxIndex = parseInt(i / 3) * 3 + parseInt(j / 3);
         if (rows[i + '-' + num] || columns[j + '-' + num] || boxes[boxIndex + '-' + num]) {
           return false;
         }
@@ -651,7 +651,7 @@ var hammingWeight = (n) => {
 
 // 大于零且二进制位中只有一个1
 var isPowerOfTwo = function (n) {
-  return n > 0 && (n & (n - 1))s === 0
+  return n > 0 && (n & (n - 1)) === 0
 }
 
 
@@ -735,7 +735,6 @@ var maxProduct = function (nums) {
   // if (nums[i] > 0) 希望F(i-1)越大越好
   // 定义 dp_max[i] 表示以nums[i]结尾的连续子数组最大乘积
   // 定义 dp_min[i] 表示以nums[i]结尾的连续子数组最小乘积
-  let maxMul = -Infinity;
   const dp_max = Array(nums.length);
   const dp_min = Array(nums.length);
   for (let i = 0; i < nums.length; i++) {
@@ -893,3 +892,22 @@ class LRUCache {
     }
   }
 }
+
+
+最长不含重复字符的子字符串
+剑指offer48
+var lengthOfLongestSubstring = function (s) {
+    var m = ''
+    var res = 0
+    for (var i = 0; i < s.length; i++) {
+        if (m.indexOf(s[i]) == -1) {
+            m += s[i]
+        } else {
+            res = Math.max(res, m.length)
+            m += s[i]
+            m = m.slice(m.indexOf(s[i]) + 1)
+        }
+    }
+    res = Math.max(res, m.length)
+    return res
+};
