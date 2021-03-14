@@ -322,7 +322,7 @@ vue3.0 的绑定和 vue2.0 的区别
 
 有哪些跨域的方法
 1, 通过jsonp跨域（jsonp主要是通过script标签，调用他返回的数据，我们一般还可以传递一个函数名称过去）
-2，利用window.name进行跨域
+2，利用window.name进行跨域  页面中引用了iframe，两者的window.name是一致的可以实现跨域
 2，使用window.postMessage方法来跨域（window.onmessage来接收）
 4，使用跨域资源共享（CORS）来跨域，服务器设置Access - Control - Allow - Origin HTTP响应头之后，浏览器将会允许跨域请求．
 5，使用webSocket来跨域
