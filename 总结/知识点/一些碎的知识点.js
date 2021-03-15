@@ -150,3 +150,9 @@ obj.toString()的结果和Object.prototype.toString.call(obj)的结果不一样�
 slot    vue.mixin
 
 jsbridge原理客户端可以通过webview里面注入一些javascript的上下文，可以理解为在window对象上挂载了一些方法，然后H5通过特定的对象可以获取到这个方法，反过来也是一样，js挂载了一些方法到window对象上，客户端也就可以调用js的某些方法。
+
+客户端开发者可以给webview注入全局变量并挂载在window对象上，这样前端js就可以通过window上全局对象方法 来调用一些native的方法
+前端需要去了解这个全局对象，是在webview初始化时候注入的，还是在页面加载完之后注入的，也就是同步注入还是异步注入的问题
+如果是异步注入的，则需要前端的代码中，添加对象的ready监听机制
+
+JSBridge 主要提供了 JS 调用 Native 代码的能力，实现原生功能如查看本地相册、打开摄像头、指纹支付等。
