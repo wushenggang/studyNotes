@@ -148,3 +148,5 @@ obj.toString()的结果和Object.prototype.toString.call(obj)的结果不一样�
 
 
 slot    vue.mixin
+
+jsbridge原理客户端可以通过webview里面注入一些javascript的上下文，可以理解为在window对象上挂载了一些方法，然后H5通过特定的对象可以获取到这个方法，反过来也是一样，js挂载了一些方法到window对象上，客户端也就可以调用js的某些方法。
