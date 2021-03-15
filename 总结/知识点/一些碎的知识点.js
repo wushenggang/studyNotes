@@ -101,6 +101,10 @@ ssr以及预渲染
 6，使用Web Workers（主线程之外的线程，但web workers中没有DOM，CSSOM环境，所以无法操作DOM，可以将一些和DOM操作无关且费时的任务放入进行执行）
 主线程采用new命令，调用Worker('work.js')构造函数，新建一个 Worker 线程，主线程调用worker.postMessage()方法，向 Worker 发消息，主线程通过worker.onmessage指定监听函数。
 Worker 线程内部需要有一个监听函数，监听message事件
+7，为item设置唯一key值
+8，细分vue组件
+9，减少watch的数据
+10，事件的销毁  ，需要在组件销毁时手动移除一些事件监听，以免内存泄漏，类似addEventListener。需要remove
 // 7，合理利用CSS合成动画, 是直接在合成线程上执行的
 
 页面性能监控：
@@ -126,6 +130,7 @@ Vue 使用了 nextTick 进行统一更新
 // 假如一个数据被页面引用，该数据会被收集到该页面的 watcher
 // 当该数据被修改时，会通知所有收集到的watcher进行更新（watcher.update）
 当一个数据被页面引用，我们给每个数据都建一个依赖数组。当数据变化时，就把每个依赖通知一遍。让他们进行更新，依赖就是watcher实例。
+当一个数据被页面引用（谁依赖了数据），我们就需要创建一个依赖，将该依赖存入该数据的依赖数组，当数据变化时，就把每个依赖通知一遍。让他们进行更新
 但数据一时间被修改三次时，按道理应该会通知三次 watcher 更新，那么页面会更新三次
 但是最后只会更新一次，why？
 当数据变化后，把 watcher.update  函数存放进 nextTick 的 回调数组中，并且会做过滤。通过 watcher.id 来判断 回调数组 中是否已经存在这个 watcher 的更新函数，
