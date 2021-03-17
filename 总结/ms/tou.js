@@ -20,3 +20,5 @@ body {
 ES6  let const 箭头函数 Promise  解构赋值 模板字符串 展开操作符(...)  默认参数  import export class extends Map Set
 解构从数组和对象提取值并赋值给独特的变量    for...of循环 可以循环任何可迭代（也就是遵守可迭代协议）类型的数据。默认情况下，
 包含以下数据类型：String、Array、Map 和 Set
+
+跨域资源共享（CORS）来跨域，服务器设置Access - Control - Allow - Origin HTTP响应头之后，浏览器将会允许跨域请求．

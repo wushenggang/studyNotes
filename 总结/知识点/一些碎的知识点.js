@@ -97,7 +97,7 @@ ssr以及预渲染
 
 2，扁平化 Store 数据结构
 3，利用Object.freeze()提升性能，冻结一个对象，不会为对象加上 setter getter 等数据劫持的方法
-4，事件委托 5，输入搜索时，可以用防抖debounce等优化方式，减少http请求。9，滚动条调用接口时，可以用节流throttle等优化方式，减少http请求；
+4，事件委托 5，输入搜索时，可以用防抖debounce等优化方式，减少http请求。9，滚动条调用接口时(或者提交操作) ，可以用节流throttle等优化方式，减少http请求；
 6，使用Web Workers（主线程之外的线程，但web workers中没有DOM，CSSOM环境，所以无法操作DOM，可以将一些和DOM操作无关且费时的任务放入进行执行）
 主线程采用new命令，调用Worker('work.js')构造函数，新建一个 Worker 线程，主线程调用worker.postMessage()方法，向 Worker 发消息，主线程通过worker.onmessage指定监听函数。
 Worker 线程内部需要有一个监听函数，监听message事件
