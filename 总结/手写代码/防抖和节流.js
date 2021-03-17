@@ -103,6 +103,18 @@ window.addEventListener('resize', throttle(sayHi, 500));
 
 
 
+
+const debounce = (fn, delay) => {
+  let timeout = null;
+  return () => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      fn.apply(this, arguments)
+    }, delay)
+  }
+}
+
+
 const throttle = (fn, delay) => {
   let timer = null;
   return () => {
@@ -113,16 +125,6 @@ const throttle = (fn, delay) => {
       // fn();             如果直接调用的话，内部的this一定会指向window。可能会有问题
       fn.apply(this, arguments)
       timer = null
-    }, delay)
-  }
-}
-
-const debounce = (fn, delay) => {
-  let timeout = null;
-  return () => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
-      fn.apply(this, arguments)
     }, delay)
   }
 }
