@@ -21,6 +21,8 @@ HTML 语义化就是使用正确的标签（总结）段落就写 p 标签，标
 6，iframe内嵌框架有哪些缺点
 （1）无法被一些搜索引擎索引到 （2）很多的移动设备（PDA 手机）无法完全显示框架，设备兼容性差。
 7,说一下webWorker,webSocket
+webwork为js创造多线程的环境，在webworker线程里的任务一般都是耗时且和DOM操作无关的任务
+webSocket是一种通信协议，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息。（http协议通信只能由客户端发起）
 
 
 CSS
@@ -69,7 +71,8 @@ JS
 		更重的一点是 instanceof 可以在继承关系中用来判断一个实例是否属于它的父类型。
 	3，类型判断的几种方法
 		（1）typeof "number"，"string"，"boolean"，"object"，"function"，"undefined"
-		（2）instanceof 可以用instanceof运算符来判断对象是否为数组类型
+		（2）instanceof 可以用instanceof运算符来判断对象是否为数组类型  {} instanceof Object 会报错
+		{} 同时也是空的代码块，所以js无法识别{}是代码块还是空对象，使用({}) instanceof Object
 		（3）constructor 每个对象都有一个constructor属性，它引用了初始化该对象的构造函数，常用于判断未知对象的类型
 		（4）Object.prototype.toString.call() 判断（最靠谱）
 	4，判断是否为数组的几种方式
