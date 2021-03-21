@@ -292,6 +292,8 @@ JS
 	实现 call、apply、bind
 	实现节流与防抖
 	实现深浅拷贝
+		浅拷贝:Object.assign(),Array.prototype.concat(),Array.property.slice(),
+				[...arr]扩展运算符
 	实现函数柯里化
 	实现数组去重
 	实现数组扁平化
@@ -306,18 +308,37 @@ JS
 	单变量对应多视图Vue怎样去更新状态
 	Vuex中的几种状态
 	MVVM 模式的优缺点，与 MVC 的区别
-	一般在哪个生命周期里请求接口
+		MVVM 优点：(1),分离视图（view）模型（model）降低代码的耦合 2,
+				   (2),2，自动更新dom: 利用双向绑定,数据更新后视图自动更新,让开发者从繁琐的手动dom中解放
+			 缺点：（1）对于大型的图形应用程序，视图状态较多，ViewModel的构建和维护的成本都会比较高
+		两者的区别：
+					（1）mvc 中 Controller演变成 mvvm 中的 viewModel
+					（2）mvvm 通过数据来驱动视图层的显示而不是节点操作。
+					（3）mvc中Model和View是可以直接打交道的，造成Model层和View层之间的耦合度高。而mvvm中Model和View不直接交互，而是通过中间桥梁ViewModel来同步
+					（4）mvvm主要解决了:mvc中大量的DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验。	 
 	Vue 的组件通信
 	Vue 中是如何检测数组的变化
+		重写数组的原型
 	Vue 组件中的data为什么要写成函数形式
+		当组件复用的时候，若写成对象的形式，该对象就会被复用。假如写成函数的形式，每次返回的都是一个新的对象，
+		所以不会被复用
 	nextTick 是做什么用的，其原理是什么
 	Vue 的模板编译原理
 	computed 与 watch 的差异
+		computed是计算属性，只有相关的数据变化才会重新计算。当数据没有变化时它会读取缓存。
+		watch是对数据进行监听，如果一个数据需要被监听并且对数据做一些操作就用 watch
 	vue-router 中的导航钩子
+		全局前置守卫 router.beforeEach    全局解析守卫 router.beforeResolve   全局后置钩子 router.afterEach(唯一一个没有next参数的)    路由独享的守卫 beforeEnter   
+		组件内的守卫 beforeRouteEnter(不能访问this，可以通过传一个回调给 next来访问组件实例)、beforeRouteUpdate、
+		beforeRouteLeave（这个离开守卫通常用来禁止用户在还未保存修改前突然离开。该导航可以通过 next(false) 来取消）
 	vue-router的两种模式
 	Vue中 key 值的作用
 	Vue中常见的修饰符
+		（1）.stop 阻止事件冒泡 （2），.prevent 阻止默认事件 (3),使用事件的捕获模式
+		（4）.self 只在事件在该元素本身时触发回调（在其子元素在不触发） （5）.once 只触发一次事件
 	Vue中常用的指令
+		v-bind：属性绑定  v-on: 事件绑定  v-model:数据双向绑定
+		v-for v-if v-show
 	v-show 与 v-if 的区别
 	keep-alive 组件的作用
 	Vue的虚拟dom
@@ -328,6 +349,9 @@ JS
 
 	浏览器缓存
 	浏览器的同源策略
+	同源条件：(1)协议相同（2）域名相同（3）端口相同
+	如果非同源： （1）Cookie、LocalStorage 和 IndexDB 无法读取。 （2）DOM 无法获得。
+		（3）AJAX 请求不能发送。
 	跨域
 	浏览器的渲染
 	回流为什么比重绘更消耗性能
