@@ -25,41 +25,6 @@ ownKeys(target) ，拦截Object.getOwnPropertyNames(proxy) 。apply，拦截 Pro
 construct(target, args) ：拦截 Proxy 实例作为构造函数调用的操作，比如new proxy(...args) 。
 
 
-function fn(content) {
-	return new Promise(function (reslove, reject) {
-		if (content > 3) {
-			resolve(true)
-		} else {
-			reject(false)
-		}
-	})
-}
-var number = Math.random();
-var timer = setInterval(
-	fn(number).then((data) => {
-		console.log('continue')
-	}, (err) => {
-		clearInterval(timer);
-		console.log('done')
-	}), 5000);
-
-setTimeout(function () {
-	clearInterval(timer);
-	console.log('done')
-}, 60000)
-
-
-
-
-
-
-
-
-
-
-
-
-
 function fn(num) {
 	return new Promise((resolve, reject) => {
 		if (num > 3) {

@@ -32,3 +32,31 @@ function bindData(obj, objWatcher) {
     console.log('must be Object')
   }
 }
+
+
+function fn(num) {
+	return new Promise((resolve, reject) => {
+		if (num > 3) {
+			resolve()
+		} else {
+			reject()
+		}
+	})
+}
+
+let timer = setInterval(() => {
+	let n = Math.random() * 10
+	fn(n).then(() => {
+		console.log('continue')
+	}, () => {
+		clearInterval(timer)
+		console.log('done')
+	})
+}, 5000)
+
+setTimeout(() => {
+	if (timer) {
+		clearInterval(timer)
+		console.log('done')
+	}
+}, 60000)

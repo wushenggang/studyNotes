@@ -147,46 +147,147 @@ JS
 		（1），原型链继承      ------子类型的原型为父类型的一个实例对象
 		（2），借用构造函数继承     ---------在子类型构造函数中通过call()调用父类型构造函数
 		（3），class通过extends继承
+		组合继承：借用构造函数的技术实现实例属性的继承，使用原型链实现原型属性和方法的继承。
+		但是会在原型链上多出一些多余的属性。并且都会调用两次构造函数。寄生组合继承就是为了解决这个问题，
+		寄生继承就是不用实例化父类了，直接实例化一个临时副本实现了相同的原型链继承。
+		Sub.prototype = Object.create(Sup.prototype);
 
 	20，es6与es5继承的区别
+		1.ES5先创建子类，在实例化父类并添加到子类this中
+		2.ES6先创建父类，在实例化子集中通过调用super方法访问父级后，在通过修改this实现继承
+
 	21，箭头函数和普通函数的区别
+		（1）箭头函数时匿名函数,不能作为构造函数，不能使用new
+		 (2) 箭头函数不能绑定arguments,取而代之用rest参数...解决
+		 (3) 箭头函数没有原型属性
+		 (4)箭头函数的this指向其上下文的this，普通函数的this指向调用它的对象
+
 	22，this的理解
+			this表示当前对象，this的指向是根据调用的上下文来决定的，默认指向window对象。严格模式下指向undefined
 	23，call,apply,bind的区别
+			这三个方法的第一个参数都可以改变this的指向，call和apply是在调用之后立即执行的。而bind是调用之后返回原函数，
+			需要再调用一次。appl第二个参数是一个数组
+
 	24，深浅拷贝
+		JSON.parse(JSON.stringify(obj))
+		递归
+
 	25，事件流、事件委托（事件委托我们可以不必要为每一个子元素都绑定
 	一个监听事件，这样减少了内存上的消耗）
+	事件流描述的就是从页面中接收事件的顺序
+
 	26，js延迟加载的方式
+		宏任务与微任务
+
 	27，ajax是什么
+		可以在不重新加载整个网页的情况下，对网页的某部分进行更新的技术
+
 	28，浏览器和Node.js的事件循环机制有什么区别
 	29，同步与异步，宏任务与微任务
 	30，模块规范（commonJS，es6,AMD,CMD）
+		1，Commonjs的模块是运行时加载，而且加载的是整个模块，一般用在node.js中
+		2，es6是编译时加载，而且是需要啥加载啥，不是加载的整个模块
+		3，commonjs导出的值会复制一份，require引入的是复制之后的值（引用类型只复制引用），
+		es module导出的值是同一份（不包括export default ），不管是基础类型还是应用类型。
+
+
 	31,typeof NaN的结果是什么，isNaN与Number.isNaN函数的区别
+		'number' 
+		isNaN 接收参数后，会尝试将这个参数转换为数值，任何不能被转换为数值的的值都会返回 true
+		Number.isNaN 会首先判断传入参数是否为数字，如果是数字再继续判断是否为 NaN
+
 	32，如何判断变量的类型
+		上面有
 	33，js的节流与防抖
+		防抖：输入搜索
+		节流：滚动请求接口，避免多次重复提交
 	34，布尔类型的值的转换规则 ：假值（undefined、null、false、+0 、-0、""、NaN）
 	35，{} 和 [] 的 valueOf 和 toString 的结果是什么
+		1，{} 的 valueOf 结果为 {} ，toString 的结果为 "[object Object]"
+		2，[] 的 valueOf 结果为 [] ，toString 的结果为 ""
+
 	36，js 类数组的定义、类数组如何转换为数组
+		(1)，通过Array.property.slice.call()
+		(2),通过Array.from或者 通过扩展运算符[...arr]
+
 	37，js 的垃圾回收 与 v8 的垃圾回收
 	38，哪些操作会照成内存泄漏
+		（1），被遗忘的定时器和回调函数   
+		（2），闭包   
+		（3），没有清理的dom元素引用  
+		（4）,全局变量 不用 var 声明的变量，相当于挂载到 window 对象上。如：b=1; 解决：使用严格模式
+
 	39，0.1 + 0.2 != 0.3 如何解决
+		小数点在计算机中是以二进制表示，而有些小数用二进制表示是无穷。所以会出现精度丢失(js中是以64位双精度
+		格式来存储数字的)。
+		（1）可以将其转换为整数后进行运算，运算后再转换为对应的小数
+		（2）利用ES6的Number.EPSILON,它表示 1 与大于 1 的最小浮点数之间的差。
+			注意兼容性，相减小于等于这个值
+
 	40，图片懒加载与预加载
+			懒加载：
+			暂时不设置图片的src属性，而是将图片的url隐藏起来，比如先写在data-src里面，等某些事件触发的时候
+			(比如滚动到底部，点击加载图片)再将图片真实的url放进src属性里面，从而实现图片的延迟加载
+			预加载：
+			在一些需要展示大量图片的网站，实现图片的提前加载。从而提升用户体验。常用的方式有两种，一种是隐藏在
+			css的background的url属性里面，一种是通过javascript的Image对象设置实例对象的src属性实现图片的预加载。
+			两者的行为是相反的，一个是提前加载，一个是迟缓甚至不加载。懒加载对服务器前端有一定的缓解压力作用，
+			预载则会增加服务器前端压力。
 	41，JavaScript 中数组是如何存储的？
+			数组是引用类型，存在堆中。
 	42，JavaScript 中的数组为什么可以不需要分配固定的内存空间？（追加）
 	43，JavaScript 中数组的存储和 C / C++ / Java 中数组的存储有什么区别？（追加）
 	44，let 、const 与 var的区别
+		let，const是Es6的语法，具有块级作用域。const是定义一个常量的。定义好后是不能修改的。
+		var的话会具有变量提升的
 	45，Iterator和for…of
+	遍历器（Iterator）就是这样一种机制。它是一种接口，为各种不同的数据结构提供统一的访问机制。
+	任何数据结构只要部署 Iterator 接口，就可以完成遍历操作。Iterator 接口主要供for...of消费。
+	String、Array、Map 和 Set，函数的arguments对象
+	tip：可以通过调用next方法来让它一直往前走
 	46，Symbol 类型
+			Symbol表示独一无二的值，let s = Symbol('foo')
 	47，Set 与 WeakSet 、Map 与 WeakMap
-	48，什么是 Proxy
-	49，说一说 promise？promise的各种api
-	50，Generator及其异步方面的应用
-	51，说一说 async / await
-	52，class基本语法及继承
+		(1).ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+		(2).WeakSet 结构与 Set 类似，也是不重复的值的集合。但是 WeakSet 的成员只能是对象，
+		而不能是其他类型的值。WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对
+		该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该
+		对象所占用的内存，不考虑该对象是否还在该弱引用的结构中
+		
+		(3).Map 数据结构。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。
+		(4).WeakMap 结构与 Map 结构类似，也是用于生成键值对的集合。但是 WeakMap 只接受对象作为键名（ null 除外），不接受其
+		他类型的值作为键名。而且 WeakMap 的键名所指向的对象，不计入垃圾回收机制。
 
+	48，什么是 Proxy
+		用来修改某些操作的默认行为，通过let obj = new Proxy(target, handler)来生成一个Proxy实例，第一个参数代表要拦截的目标对象，第二个参数也是对象，用来
+		定制拦截行为。例如有get, 拦截对象属性的读取。set，拦截对象属性的设置。has, 拦截  key in obj 操作。deleteProperty(target, propKey) ，拦截delete操作。
+		ownKeys(target) ，拦截Object.getOwnPropertyNames(proxy) 。apply，拦截 Proxy 实例作为函数调用的操作，比如proxy(...args) 、proxy.call(object, ...args) 、proxy.apply(...) 。
+		construct(target, args) ：拦截 Proxy 实例作为构造函数调用的操作，比如new proxy(...args) 。
+
+	49，说一说 promise？promise的各种api
+			Promise是异步回调的一种解决方案，是为了解决之前的回调地狱，他通过链式结构，代码更加清晰了。把执行代码和处理结果的代码清晰地分离了。
+			Promise.all([])   Promise.race([])
+	50，Generator及其异步方面的应用
+			Generator这个函数自己执行不了，得让别人帮忙执行，每next() ，走一步。函数用 * 来定义，函数里面会有一个yield，把函数截成不同的状态。
+			async、await是Generator函数的语法糖，原理是通过Generator函数加自动执行器来实现的
+	51，说一说 async / await
+			async / await诞生主要是为了让异步代码看起来更像同步代码，使用try catch来捕获异常。假如 await后面的Promise没有resolve成功的话，异步函数也不会继续执行。
+	52，class基本语法及继承
+			constructor方法，里面的this代表实例对象。
+			继承的话可以通过extends来实现，子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类自己的this对象，必须先通过父类的构造函数完成塑造。
+			
 	手写原理：
 	new 操作符具体干了什么
 	instanceof 的实现
 	实现原生ajax
+		var request = new XMLHttpRequest()
+		request.open('GET', '/a/b/c?name=ff', true);     // true表示异步
+		request.onreadystatechange = function () {
+			if (request.readyState === 4 && request.status === 200) {
+				console.log(request.responseText);
+			}
+		};
+		request.send();
 	原生jsonp
 	实现 call、apply、bind
 	实现节流与防抖
@@ -200,6 +301,8 @@ JS
 
 	双向绑定原理
 	Vue生命周期（资源请求一般在哪个生命周期，还有哪些生命周期可以请求资源）
+		一般的话是created和mounted,created是数据初始好了但页面没有渲染好，如果要操作dom节点的话会找不到，
+		我一般都是在mounted中初始化请求的。
 	单变量对应多视图Vue怎样去更新状态
 	Vuex中的几种状态
 	MVVM 模式的优缺点，与 MVC 的区别
@@ -274,3 +377,41 @@ HTTP 缓存：强缓存与协商缓存
 安全
 XSS 攻击及如何防范
 CSRF 攻击及如何防范
+
+
+附加：
+1，rem重点学习
+2，有什么跨端的方案
+3，无限下拉列表有什么好的解决方案
+4，如何去解决首屏渲染的速度，有啥指标
+5，如何埋点
+6，Object.definProperty()有什么属性方法。
+
+https://www.kancloud.cn/pillys/qianduan/2052094
+
+阿里面试：
+ajax的流程
+var request = new XMLHttpRequest()
+request.open('GET', '/a/b/c?name=ff', true);
+request.onreadystatechange = function () {
+	if (request.readyState === 4 && request.status === 200) {
+		console.log(request.responseText);
+	}
+};
+request.send();
+401状态码
+ajax, axios和fetch的区别
+ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 设置请求参数，包括请求的方法和URL等 3, 发送请求 4, 注册事件，事件状态变更会及时响应监听 5, 在监听里面获取并处理返回数据
+axios: axios是一个基于Promise的HTTP库，可以用在浏览器和node.js中，它底层还是基于XMLHttpRequest对象的。
+1，对PromiseAPI的支持 2，支持请求拦截和响应、转换请求数据和响应数据、取消请求 3，可以自动转换JSON数据 4，支持防御XSRF
+fetch： fetch就不是XMLHttpRequest对象了，fetch是原生的js对象
+1，fetch 返回的是一个Promise对象 2，promise 对象获取到的是一个Response对象，即Response对象只是一个 HTTP 响应，而不是真的JSON。
+3，为了获取后台返回的JSON内容，我们需要使用Response.json()方法 4，在第二个then方法中才能获取后台返回的数据
+5，fetch返回的是Promise，所以如果HTTP状态码是404之类的，fetch也是成功返回的，只有在网络连接错误的情况下，才会reject 6，fetch不发送cookies
+
+设计模式
+proxy具体咋用
+用来修改某些操作的默认行为，通过let obj = new Proxy(target, handler)来生成一个Proxy实例，第一个参数代表要拦截的目标对象，第二个参数也是对象，用来
+定制拦截行为。例如有get, 拦截对象属性的读取。set，拦截对象属性的设置。has, 拦截  key in obj 操作。deleteProperty(target, propKey) ，拦截delete操作。
+ownKeys(target) ，拦截Object.getOwnPropertyNames(proxy) 。apply，拦截 Proxy 实例作为函数调用的操作，比如proxy(...args) 、proxy.call(object, ...args) 、proxy.apply(...) 。
+construct(target, args) ：拦截 Proxy 实例作为构造函数调用的操作，比如new proxy(...args) 。
