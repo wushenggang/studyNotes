@@ -415,3 +415,138 @@ proxy具体咋用
 定制拦截行为。例如有get, 拦截对象属性的读取。set，拦截对象属性的设置。has, 拦截  key in obj 操作。deleteProperty(target, propKey) ，拦截delete操作。
 ownKeys(target) ，拦截Object.getOwnPropertyNames(proxy) 。apply，拦截 Proxy 实例作为函数调用的操作，比如proxy(...args) 、proxy.call(object, ...args) 、proxy.apply(...) 。
 construct(target, args) ：拦截 Proxy 实例作为构造函数调用的操作，比如new proxy(...args) 。
+
+
+
+
+
+
+
+// =====================================================
+// 欢迎参加有赞前端 Coding 面试
+// =====================================================
+// 界面介绍：
+//   上方设置按钮可以切换语言、字体大小、主题
+//   右侧控制台可以显示代码执行结果，可用于编码过程中的 DEBUG
+// =====================================================
+// Coding 须知：
+//   本次 Coding 时间限制为 45 分钟，共 4 道题，完成 2 道即可
+// =====================================================
+
+/**
+ * 1、解析 url 中的 queryString
+ *
+ * 输入：https://www.youzan.com?name=coder&age=20&callback=https%3A%2F%2Fyouzan.com%3Fname%3Dtest&list[]=a&json=%7B%22str%22%3A%22abc%22,%22num%22%3A123%7D&qwe&www=
+ * 输出：
+ * {
+ *  name: coder,
+ *  age: 20,
+ *  callback: https://youzan.com?name=test,
+ *  list: [a, b],
+ *  json: {
+ *      str: 'abc',
+ *      num: 123
+ *  },
+ *  qwe: '',
+ *  www: '',
+ * }
+ */
+
+const url = `https://www.youzan.com?name=coder&age=20&callback=https%3A%2F%2Fyouzan.com%3Fname%3Dtest&list[]=a&list[]=b&json=%7B%22str%22%3A%22abc%22,%22num%22%3A123%7D&qws&www=null`;
+
+function urlParse(url) {
+    let urlParams = url.slice(url.indexOf('?') + 1)
+    urlParams = urlParams.split('&')
+    let theObject = {}
+    for (let i = 0; i < urlParams.length; i++) {
+        theObject[urlParams[i].split('=')[0]] = unescape(urlParams[i].split('=')[1])
+    }
+    return theObject;
+}
+
+
+const result = urlParse(url)
+
+/**
+ * 2、实现 getValue 函数，安全的获取目标对象指定 path 的值
+ * @params {object | array} value 指定对象
+ * @params {string} path
+ */
+
+const object = { 'a': [{ 'b': { 'c': 3 } }] }; // path: 'a[0].b.c'
+const array = [{ "a": { b: [1] } }]; // path: '[0].a.b[0]'
+// const object1 = { a: { b: { c: 2 }}} // path: a.b.c === 2
+
+function getValue(obj, path) {
+
+}
+
+getValue(object, 'a[0].b.c')
+
+/**
+ * 3、将一个json数据的所有key从下划线改为驼峰
+ * 
+ * @param {object | array} value 待处理对象或数组
+ * @returns {object | array} 处理后的对象或数组
+ */
+
+const testData = {
+    a_bbb: 123,
+    a_g: [1, 2, 3, 4],
+    a_d: {
+        s: 2,
+        s_d: 3
+    },
+    a_f: [1, 2, 3, {
+        a_g: 5
+    }],
+    a_d_s: 1
+}
+
+function helper(key, data, cloneData) {
+    console.log(key)
+    if (key.indexOf('_') ) {
+        let trueKey = ''
+        let keys = key.split('_')
+        for (let i = 0; i < keys.length; i++) {
+            if (i !== 0) {
+                keys[i] = keys[i][0].toUpperCase()+keys[i].slice(1)
+            }
+            trueKey += keys[i] 
+        }
+        cloneData[trueKey] = data[key]
+    } else {
+        cloneData[key] = data[key]
+    }
+}
+function mapKeysToCamelCase(data) {
+    let cloneData = Array.isArray(data) ? [] : {}
+    if (data && typeof data === 'object') {
+        for (let key in data) {
+            if (data.hasOwnProperty(key)) {
+                helper(key, data,cloneData)
+                if (data[key] && typeof data[key] === 'object') {
+                    for (let key1 in data[key]) {
+                        helper(key1, data[key], cloneData)
+                        mapKeysToCamelCase(data[key][key1])
+                    }          
+                }
+            }
+        }
+    }
+    return cloneData
+ }
+
+
+
+
+
+/**
+ * 4、将一天24小时按每半小划分成48段，我们用一个位图表示选中的时间区间，
+ * 例如110000000000000000000000000000000000000000000000，表示第一个半小时和第二个半小时被选中了，其余时间段都没有被选中，也就是对应00:00~01:00这个时间区间。
+ * 一个位图中可能有个不连续的时间区间被选中，例如110010000000000000000000000000000000000000000000，
+ * 表示00:00~01:00和02:00~02:30这两个时间区间被选中了。
+ * 写一个timeBitmapToRanges,将上述规则描述的时间位图转挨成一个选中时间区间的数组。
+ */
+
+function timeBitmapToRanges() { }
