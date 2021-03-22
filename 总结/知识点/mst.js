@@ -78,6 +78,7 @@ CSS
 	link与@import区别
 a标签的4个伪类的正确顺序，并解释
 清除浮动的方式
+（1）1、在标签结尾处加空div标签 clear:both （2）父级div定义 伪类:after （3）父级div定义 overflow:hidden  （4）给父级元素单独定义高度（height）
 position的属性值：static、relative、absolute（脱离文档流）、fixed（脱离文档流）；absolute相对定位的
 z-index：只对脱离文档流的元素有效
 flex布局: 父元素设为Flex布局后，子元素的float、clear、vertical-align属性将失效。
