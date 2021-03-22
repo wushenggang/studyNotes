@@ -64,7 +64,7 @@ CSS
 	4,实现动画的一些方式   @keyframes   transform 前者控制地更精确
 	5,flex
 	6，盒模型：标准模型和IE模型   标准盒模型  width等于content的宽   IE盒模型中： width等于content+padding+border这三个部分的宽度
-	7，权重问题  ！important > 行间样式 > id选择器 > class选择器||属性选择器 > 标签选择器 > 通配符选择器
+	7，权重问题  ！important > 行内样式 > id选择器 > class选择器||属性选择器 > 标签选择器 > 通配符选择器
 	8，css选择符有
 	（1）：id选择器（#myid）;
 	（2）:类选择器（.myclassname）;
@@ -79,7 +79,7 @@ CSS
 a标签的4个伪类的正确顺序，并解释
 清除浮动的方式
 （1）1、在标签结尾处加空div标签 clear:both （2）父级div定义 伪类:after （3）父级div定义 overflow:hidden  （4）给父级元素单独定义高度（height）
-position的属性值：static、relative、absolute（脱离文档流）、fixed（脱离文档流）；absolute相对定位的
+position的属性值：static、relative（相对其正常位置）、absolute（脱离文档流，相对于最近position不为static的父级元素来定位）、fixed（脱离文档流，元素的位置相对于浏览器窗口是固定位置；）
 z-index：只对脱离文档流的元素有效
 flex布局: 父元素设为Flex布局后，子元素的float、clear、vertical-align属性将失效。
 BFC、触发条件、可解决的问题
@@ -154,11 +154,11 @@ JS
 		Sub.prototype = Object.create(Sup.prototype);
 
 	20，es6与es5继承的区别
-		1.ES5先创建子类，在实例化父类并添加到子类this中
-		2.ES6先创建父类，在实例化子集中通过调用super方法访问父级后，在通过修改this实现继承
+		1.ES5先创建子类，再实例化父类并添加到子类this中
+		2.ES6先创建父类，通过调用super方法访问父级后，再通过修改this实现继承
 
 	21，箭头函数和普通函数的区别
-		（1）箭头函数时匿名函数,不能作为构造函数，不能使用new
+		（1）箭头函数是匿名函数,不能作为构造函数，不能使用new
 		 (2) 箭头函数不能绑定arguments,取而代之用rest参数...解决
 		 (3) 箭头函数没有原型属性
 		 (4)箭头函数的this指向其上下文的this，普通函数的this指向调用它的对象
@@ -172,6 +172,8 @@ JS
 	24，深浅拷贝
 		JSON.parse(JSON.stringify(obj))
 		递归
+		浅拷贝:Object.assign(),Array.prototype.concat(),Array.property.slice(),
+				[...arr]扩展运算符
 
 	25，事件流、事件委托（事件委托我们可以不必要为每一个子元素都绑定
 	一个监听事件，这样减少了内存上的消耗）
@@ -182,6 +184,16 @@ JS
 
 	27，ajax是什么
 		可以在不重新加载整个网页的情况下，对网页的某部分进行更新的技术
+		var request = new XMLHttpRequest()
+request.open('GET', '/a/b/c?name=ff', true);
+request.onreadystatechange = function () {
+	if (request.readyState === 4 && request.status === 200) {
+		console.log(request.responseText);
+	}
+};
+request.send();
+ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 设置请求参数，包括请求的方法和URL等 
+3, 发送请求 4, 注册事件，事件状态变更会及时响应监听 5, 在监听里面获取并处理返回数据
 
 	28，浏览器和Node.js的事件循环机制有什么区别
 	29，同步与异步，宏任务与微任务
@@ -293,8 +305,6 @@ JS
 	实现 call、apply、bind
 	实现节流与防抖
 	实现深浅拷贝
-		浅拷贝:Object.assign(),Array.prototype.concat(),Array.property.slice(),
-				[...arr]扩展运算符
 	实现函数柯里化
 	实现数组去重
 	实现数组扁平化
@@ -444,7 +454,6 @@ request.onreadystatechange = function () {
 	}
 };
 request.send();
-401状态码
 ajax, axios和fetch的区别
 ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 设置请求参数，包括请求的方法和URL等 3, 发送请求 4, 注册事件，事件状态变更会及时响应监听 5, 在监听里面获取并处理返回数据
 axios: axios是一个基于Promise的HTTP库，可以用在浏览器和node.js中，它底层还是基于XMLHttpRequest对象的。
@@ -454,6 +463,7 @@ fetch： fetch就不是XMLHttpRequest对象了，fetch是原生的js对象
 3，为了获取后台返回的JSON内容，我们需要使用Response.json()方法 4，在第二个then方法中才能获取后台返回的数据
 5，fetch返回的是Promise，所以如果HTTP状态码是404之类的，fetch也是成功返回的，只有在网络连接错误的情况下，才会reject 6，fetch不发送cookies
 
+401状态码
 设计模式
 proxy具体咋用
 用来修改某些操作的默认行为，通过let obj = new Proxy(target, handler)来生成一个Proxy实例，第一个参数代表要拦截的目标对象，第二个参数也是对象，用来
