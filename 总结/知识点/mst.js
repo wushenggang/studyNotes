@@ -372,6 +372,8 @@ ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 
 	同源条件：(1)协议相同（2）域名相同（3）端口相同
 	如果非同源： （1）Cookie、LocalStorage 和 IndexDB 无法读取。 （2）DOM 无法获得。
 		（3）AJAX 请求不能发送。
+		两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享 Cookie
+		(这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexDB 无法通过这种方法)
 	跨域
 	浏览器的渲染
 	回流为什么比重绘更消耗性能
