@@ -222,6 +222,8 @@ ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 
 	36，js 类数组的定义、类数组如何转换为数组
 		(1)，通过Array.property.slice.call()
 		(2),通过Array.from或者 通过扩展运算符[...arr]
+		(3)Array.property.concat()
+		(4)Object.assign()
 
 	37，js 的垃圾回收 与 v8 的垃圾回收
 	38，哪些操作会照成内存泄漏
@@ -334,6 +336,13 @@ ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 
 		当组件复用的时候，若写成对象的形式，该对象就会被复用。假如写成函数的形式，每次返回的都是一个新的对象，
 		所以不会被复用
 	nextTick 是做什么用的，其原理是什么
+	nextTick可以让我们在下次 DOM 更新循环结束之后执行延迟回调，用于获得更新后的 DOM。
+
+在 Vue 2.4 之前都是使用的 microtasks，但是 microtasks 的优先级过高，在某些情况下可能会出现比事件冒泡更快的情况，
+但如果都使用 macrotasks 又可能会出现渲染的性能问题。所以在新版本中，会默认使用 microtasks，但在特殊情况下会使用 macrotasks，
+比如 v-on。对于实现 macrotasks ，会先判断是否能使用setImmediate，不能的话降级为MessageChannel，
+以上都不行的话就使用setTimeout
+
 	Vue 的模板编译原理
 	computed 与 watch 的差异
 		computed是计算属性，只有相关的数据变化才会重新计算。当数据没有变化时它会读取缓存。
@@ -345,7 +354,7 @@ ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 
 	vue-router的两种模式
 	Vue中 key 值的作用
 	Vue中常见的修饰符
-		（1）.stop 阻止事件冒泡 （2），.prevent 阻止默认事件 (3),使用事件的捕获模式
+		（1）.stop 阻止事件冒泡 （2），.prevent 阻止默认事件 (3), .capture使用事件的捕获模式
 		（4）.self 只在事件在该元素本身时触发回调（在其子元素在不触发） （5）.once 只触发一次事件
 	Vue中常用的指令
 		v-bind：属性绑定  v-on: 事件绑定  v-model:数据双向绑定
@@ -387,6 +396,9 @@ ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 
 	计算机基础
 
 UDP和TCP区别讲一下
+都是传输协议
+（1）TCP顺序发顺序收，UDP顺序发无序收
+（2）TCP丢包后会重传，安全性高
 跨域的几种实现方式
 网站的本地缓存
 TCP/IP 四层模型 、OSI七层模型、每一层的有哪些常见的协议
@@ -478,6 +490,19 @@ jsbridge原理客户端可以通过webview里面注入一些javascript的上下�
 如果是异步注入的，则需要前端的代码中，添加对象的ready监听机制
 
 JSBridge 主要提供了 JS 调用 Native 代码的能力，实现原生功能如查看本地相册、打开摄像头、指纹支付等。
+
+Symbol的作用：
+	Symbol作为对象的属性时不能够被for-in或者Object.keys所遍历
+
+es6的class和es5的原型的区别（区别在于原型对象上的方法是否可遍历）
+	在for in的时候es5的prototype上的属性会被打出来，es6中继承的属性不会被打出来
+
+如何判断数组和伪数组
+1、数据 instanceof Array
+2、Object.prototype.toString.call( 数据 ) === '[object Array]'
+
+
+poyfill
 
 
 
