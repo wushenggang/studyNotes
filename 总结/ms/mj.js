@@ -325,12 +325,21 @@ vue3.0 的绑定和 vue2.0 的区别
 5, 浏览器解析报文，渲染输出页面。
 
 有哪些跨域的方法
-1, 通过jsonp跨域（jsonp主要是通过script标签，调用他返回的数据，我们一般还可以传递一个函数名称过去）
-2，利用window.name进行跨域  页面中引用了iframe，两者的window.name是一致的可以实现跨域
-2，使用window.postMessage方法来跨域（window.onmessage来接收）
-4，使用跨域资源共享（CORS）来跨域，服务器设置Access - Control - Allow - Origin HTTP响应头之后，浏览器将会允许跨域请求．
-5，使用webSocket来跨域
-6, Vue - cli中通过配置Proxy
+//Cookie:
+1, 两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享 Cookie
+  (这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexDB 无法通过这种方法)
+// Ajax跨域
+2, 通过jsonp跨域（jsonp主要是通过script标签，调用他返回的数据，我们一般还可以传递一个函数名称过去）
+3，使用跨域资源共享（CORS）来跨域，服务器设置Access - Control - Allow - Origin HTTP响应头之后，浏览器将会允许跨域请求．
+Access - Control - Allow - Credentials(可选值，表示是否允许发送cookie)
+4，使用webSocket来跨域(因为服务器可以根据请求头中的origin这个字段，判断是否许可本次通信)
+//iframe
+5，利用window.name进行跨域  页面中引用了iframe，两者的window.name是一致的可以实现跨域
+6，使用window.postMessage方法来跨域（window.onmessage来接收）
+postMessage方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin）。
+7，通过片段标识符.指的是，URL的#号后面的部分。如果只是改变片段标识符，页面不会重新刷新。父窗口可以把信息，写入子窗口的片段标识符。
+子窗口通过监听hashchange事件得到通知。同样的，子窗口也可以改变父窗口的片段标识符。
+8, Vue - cli中通过配置Proxy
 
 js 的事件循环
 你知道哪些排序方法，时间复杂度分别是多少
