@@ -636,3 +636,6 @@ function mapKeysToCamelCase(data) {
  */
 
 function timeBitmapToRanges() { }
+
+
+[].forEach:  类似于for循环吧，就是遍历循环。  map的话：建一个新的数组，其中每一个元素由调用数组中的每一个元素执行提供的函数得来。原数组不变
