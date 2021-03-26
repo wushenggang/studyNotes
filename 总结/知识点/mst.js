@@ -356,6 +356,8 @@ ajax: 1, 创建异步XMLHttpRequest对象(可以实现无刷新数据请求) 2, 
 	Vue中常见的修饰符
 		（1）.stop 阻止事件冒泡 （2），.prevent 阻止默认事件 (3), .capture使用事件的捕获模式
 		（4）.self 只在事件在该元素本身时触发回调（在其子元素在不触发） （5）.once 只触发一次事件
+			(6).passive  滚动事件的默认行为 (即滚动行为) 将会立即触发，而不会等待 onScroll 完成。
+			尤其提升了手机端的性能。和prevent不能同时使用。使用了会忽略prevent。
 	Vue中常用的指令
 		v-bind：属性绑定  v-on: 事件绑定  v-model:数据双向绑定
 		v-for v-if v-show
@@ -513,7 +515,8 @@ es6的class和es5的原型的区别（区别在于原型对象上的方法是否
 2、Object.prototype.toString.call( 数据 ) === '[object Array]'
 
 
-poyfill
+polyfill 由于ie9和一些低版本的高级浏览器对es6新语法并不支持，
+引用babel-polyfill来解决此问题
 
 
 
@@ -638,4 +641,25 @@ function mapKeysToCamelCase(data) {
 function timeBitmapToRanges() { }
 
 
-[].forEach:  类似于for循环吧，就是遍历循环。  map的话：建一个新的数组，其中每一个元素由调用数组中的每一个元素执行提供的函数得来。原数组不变
+[].forEach:  类似于for循环吧，就是遍历循环。  map的话：建一个新的数组，
+其中每一个元素由调用数组中的每一个元素执行提供的函数得来。原数组不变
+
+scoped的实现原理：主要是通过PostCss实现的，PostCSS给一个组件中的所有dom
+添加了一个独一无二的动态属性，给css选择器额外添加一个对应的属性选择器，来选择组件中的dom
+
+scoped穿透
+stylus的样式穿透 使用>>>
+sass和less的样式穿透 使用/deep/    外层 /deep/ 第三方组件
+再建立一个不加scoped的style中进行样式覆盖
+
+捕获，冒泡
+om标准事件流的触发的先后顺序为：先捕获再冒泡
+element.addEventListener(event, function, useCapture);  第三个参数默认为false，即冒泡阶段
+阻止冒泡：event.stopPropagation 或者 return false 后者还阻止了事件本身
+
+cache-control的参数：
+（1）public 响应被缓存，并且可以在多用户间共享
+（2）private 私有的缓存
+ (3) no-cache 响应不会被缓存，而是实时向服务器端请求资源
+ (4)no-store：在任何条件下，响应都不会被缓存
+ (5)max-age 缓存时间
