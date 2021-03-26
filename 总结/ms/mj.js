@@ -147,7 +147,7 @@ navigationStart: 输入网址按下回车键的时间
 fetchStart: 相当于浏览器准备好使用 HTTP 请求获取文档的时间
 第一字节时间： t.responseStart - t.navigationStart;
 白屏时间：(t.domInteractive || t.domLoading) - t.fetchStart
-首屏时间：t.domContentLoadedEventEnd - t.fetchStart;
+首屏时间：t.loadedEventEnd - t.fetchStart;
 注意点：通过window.performance.timing所获的的页面渲染所相关的数据，
 在SPA应用中改变了url但不刷新页面的情况下是不会更新的。因此仅仅通过该
 api是无法获得每一个子路由所对应的页面渲染的时间。
