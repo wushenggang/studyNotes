@@ -34,3 +34,55 @@ Array中可以改变数组自身内容的方法有7个(push, pop, shift, unshift
 我们只需拿到新增的这个元素，然后调用observe函数将其转化即可。可以向数组内新增元素的方法有3个，分别是：push、unshift、splice。我们只需在拦截器中对这3中方法分别处理，
 拿到新增的元素，再将其转化即可
 数组的下标来操作数据是无法侦测的。需要使用Vue.set和Vue.delete来解决
+
+
+
+简单手写实现
+
+function observe(obj) {
+	Object.keys(obj).forEach(key => {
+		defineReactive(obj, key, obj[key])
+	})
+}
+
+function defineReactive(obj,key, val) {
+	let dp = new Dep()
+	Object.defineProperty(obj, key, {
+		get: function() {
+			dp.addSub()
+			return val
+		}
+		set(): function(newVal) {
+			val = newVal
+			dep.notify()
+		}
+	})
+}
+
+class Dep {
+	constructor() {
+		this.subs = []
+	}
+	addSub(sub) {
+		if (window.target) {
+			this.subs.push(window.target)
+		}
+	}
+	notify(){
+		this.subs.forEach(sub => sub.update())
+	}
+}
+
+class Watch {
+	constructor(obj,key,cb) {
+		this.get()
+	}
+	get() {
+		window.target = this
+		// 需要获取一些数据的getter
+	    window.target = null
+	}
+	update() {
+		this.cb()
+	}
+}

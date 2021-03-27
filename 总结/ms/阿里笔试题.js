@@ -34,15 +34,19 @@ function bindData(obj, objWatcher) {
 }
 
 
+// 用Promise实现一个函数，每五秒判断一个随机数是否大于3，大于则打印continue，
+// 小于则结束流程，若随机数一直大于3，程序在60秒后也结束，并打印done
+
 function fn(num) {
-	return new Promise((resolve, reject) => {
-		if (num > 3) {
-			resolve()
-		} else {
-			reject()
-		}
-	})
+  return new Promise((resolve, reject) => {
+    if (num > 3) {
+      resolve()
+    } else {
+      reject()
+    }
+  })
 }
+
 
 let timer = setInterval(() => {
 	let n = Math.random() * 10

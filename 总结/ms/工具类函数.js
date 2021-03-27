@@ -53,7 +53,7 @@ function throttle(fn, delay) {
       return
     }
     setTimeout(() => {
-      fn(this, arguments)
+      fn.apply(this, arguments)
       timer = null
     }, delay)
   }
@@ -80,4 +80,17 @@ Request = GetRequest();
 
 export const requestError = (code, message) => {
 
+}
+
+
+switch(n)
+{
+    case 1:
+        执行代码块 1
+        break;
+    case 2:
+        执行代码块 2
+        break;
+    default:
+        与 case 1 和 case 2 不同时执行的代码
 }
