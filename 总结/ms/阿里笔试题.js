@@ -207,3 +207,54 @@ fn(fn1, fn2).then(() => {
 }).catch(err => {
   console.log(err)
 })
+
+
+简单手写实现
+
+function observe(obj) {
+	Object.keys(obj).forEach(key => {
+		defineReactive(obj, key, obj[key])
+	})
+}
+
+function defineReactive(obj,key, val) {
+	let dp = new Dep()
+	Object.defineProperty(obj, key, {
+		get: function() {
+			dp.addSub()
+			return val
+		},
+		set: function(newVal) {
+			val = newVal
+			dep.notify()
+		}
+	})
+}
+
+class Dep {
+	constructor() {
+		this.subs = []
+	}
+	addSub(sub) {
+		if (window.target) {
+			this.subs.push(window.target)
+		}
+	}
+	notify(){
+		this.subs.forEach(sub => sub.update())
+	}
+}
+
+class Watch {
+	constructor(obj,key,cb) {
+		this.get()
+	}
+	get() {
+		window.target = this
+		// 需要获取一些数据的getter
+	    window.target = null
+	}
+	update() {
+		this.cb()
+	}
+}

@@ -665,3 +665,47 @@ cache-control的参数：
  (3) no-cache 响应不会被缓存，而是实时向服务器端请求资源
  (4)no-store：在任何条件下，响应都不会被缓存
  (5)max-age 缓存时间
+
+
+ document.ready和window.onload的区别
+ $(document).ready()是页面DOM结构绘制完毕后就执行，不必等到加载完毕。 
+ window.onload必须等到页面内的所有元素（）加载完毕后才能执行。
+ window.onload不能同时执行多个，指挥执行后面的那一个。  $(document).ready()可以同时执行多个
+
+ 渐进jpg了解过吗
+ 基准式jpg  如果文件较大或者网络下载速度较慢，那么就会看到图片被一行行加载的效果
+ 渐进式jpg  渐进式图片带来的好处是可以让用户在没有下载完图片就可以看到最终图像的大致轮廓，一定程度上可以提升用户体验
+ 结论很简单，Chrome + Firefox + IE9浏览器下，渐进式图片加载更快，而且是快很多，至于其他浏览器，与基准式图片的加载一致，至少不会拖后腿。
+
+ 文件上传如何实现？，除了input还有什么别的方法？ 
+ 1,经典的form和input上传。  input type="file"
+ 2,通过formData上传。  formData.append("file", file)
+ 3,HTML5新api， fileReader
+ 4，文件编码上传  第一个思路是将文件进行编码，然后在服务端进行解码，其主要实现原理就是将图片转换成base64进行传递
+
+ Base64就是一种基于64个可打印字符来表示二进制数据的方法
+ 们知道，我们所看到的网页上的每一个图片，都是需要消耗一个http请求下载而来的，不管如何，图片的下载始终都要向服务器发出请求，
+ 要是图片的下载不用向服务器发出请求，而可以随着 HTML 的下载同时下载到本地那就太好了，而base64正好能解决这个问题。
+
+ 在前端怎么将base64解析成图片
+ (1)直接将其放到img标签的src属性里的
+ (2)将其显示在css的background-image样式上，同样是直接放上编码内容
+
+ 如何将图片直接转成base64？
+ （1）可以通过h5的新api FileReader来实现   new FileReader
+
+ 浏览器如何预览图片，假设我要上传图片，未上传前我想在浏览器看到我待上传的图片
+ 选中图片后，获取到图片的本地路径，然后显示在浏览中。
+ 通过调用html5的FileReader对象，来读取到上传的图片文件，并把图片文件转换成base64字符串，
+ 然后把这个字符串赋值到img控件，详细代码如图
+
+ 操作系统中进程和线程怎么通信
+
+ 请求方法：
+ get，head:类似于 GET 请求，只不过返回的响应中没有具体的内容，用于获取报头, POST, put:PUT 基本上是 POST 的同义词，多用于更新数据；
+ delete:请求服务器删除指定的页面
+
+ 你觉得typescript和javascript有什么区别
+ TypeScript 是 JavaScript 的一个超集。比如有类型的检测，代码更加严谨
+ cookie的属性：
+ name,value,domain(可以访问此cookie的域名),size,http(cookie的httponly属性)，expires，max-age,secure字段：设置是否只能通过https来传递此条cookie。
