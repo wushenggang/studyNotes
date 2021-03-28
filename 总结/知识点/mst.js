@@ -36,6 +36,7 @@ webSocket是一种通信协议，服务器可以主动向客户端推送信息�
 
 
 CSS
+span元素无法设置宽度高度
 1，三栏布局写一下
 2，垂直水平居中写一下
 (1)定位 + margin-top + margin-left (2)transform方案（有兼容问题）3，flex方案（有兼容问题） 4，display: table-cell
@@ -76,6 +77,7 @@ CSS
 	css中哪些属性可以被继承：字体系列font-family、font-size、font-weight等；文本系列：list-style、list-style-color等；文本系列：text-align、color、line-height等
 	box-sizing常用的属性
 	link与@import区别
+	一个在html中引入，一个在css中引入
 a标签的4个伪类的正确顺序，并解释
 清除浮动的方式
 （1）1、在标签结尾处加空div标签 clear:both （2）父级div定义 伪类:after （3）父级div定义 overflow:hidden  （4）给父级元素单独定义高度（height）
