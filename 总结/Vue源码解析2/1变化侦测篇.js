@@ -51,8 +51,8 @@ function defineReactive(obj,key, val) {
 		get: function() {
 			dp.addSub()
 			return val
-		}
-		set(): function(newVal) {
+		},
+		set: function(newVal) {
 			val = newVal
 			dep.notify()
 		}

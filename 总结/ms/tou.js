@@ -43,6 +43,7 @@ Worker 线程内部需要有一个监听函数，监听message事件
 8，细分vue组件
 9，减少watch的数据
 10，事件的销毁  ，需要在组件销毁时手动移除一些事件监听，以免内存泄漏，类似addEventListener。需要remove
+11，合理利用computed属性
 
 
 双向绑定:
