@@ -1,3 +1,5 @@
+import { aliceblue } from "../../../node_modules/_@types_color-name@1.1.1@@types/color-name";
+
 let obj = {
   key_1: 1,
   key_2: 2
@@ -49,20 +51,20 @@ function fn(num) {
 
 
 let timer = setInterval(() => {
-	let n = Math.random() * 10
-	fn(n).then(() => {
-		console.log('continue')
-	}, () => {
-		clearInterval(timer)
-		console.log('done')
-	})
+  let n = Math.random() * 10
+  fn(n).then(() => {
+    console.log('continue')
+  }, () => {
+    clearInterval(timer)
+    console.log('done')
+  })
 }, 5000)
 
 setTimeout(() => {
-	if (timer) {
-		clearInterval(timer)
-		console.log('done')
-	}
+  if (timer) {
+    clearInterval(timer)
+    console.log('done')
+  }
 }, 60000)
 
 
@@ -98,12 +100,12 @@ Nice to meet you Bob.
 Nice to meet you Jerry.
 4. 执行GreetRobot('bb8').greet('Bob').greetVip('Mike')
 输出: Glad to see you Mike~
-Hi this is bb8!
+  Hi this is bb8!
 Nice to meet you Bob.
 5. 执行GreetRobot('bb8').greetVip('Marry').greetVip('Mike')
 输出: Glad to see you Mike~
-Glad to see you Marry~
-Hi this is bb8!
+  Glad to see you Marry~
+    Hi this is bb8!
 =======
 function sendRequest(arr, max, callback) {
   let fetchArr = [],  // 存储并发max的promise数组
@@ -296,6 +298,94 @@ class Watch {
 		this.cb()
 	}
 }
-=======
->>>>>>> e1e13730ea0ad0fa9e02de010dedcc3f90e9a92c
->>>>>>> ac6e100951a58f74eb3c1234785887749baf9047
+
+
+Promise.all的实现原理
+
+Promise.all = arr => {
+  let result = []; //创建结果数组
+  return new Promise((resolve, reject) => {
+      arr.forEach((item, index) => { //forEach 对arr数组循环遍历
+          if ((typeof item === 'object' && item !== 'null') || typeof item === 'function') { //数组中的每一项是不是promise对象
+              if (typeof item.then == 'function') {
+                  item.then(res => {
+                      result[index] = res;
+                      if (result.length === arr.length) resolve(result)
+                  }).catch(err => reject(err))
+              } else {
+                  result[index] = item;
+              }
+          } else {
+              result[index] = item;
+          }
+      })
+  })
+}
+
+
+Promise.all的实现
+
+ Promise.all = arr => {
+                let result = []; //创建结果数组
+                return new Promise((resolve, reject) => {
+                    arr.forEach((item, index) => { //forEach 对arr数组循环遍历
+                        if ((typeof item === 'object' && item !== 'null') || typeof item === 'function') { //数组中的每一项是不是promise对象
+                            if (typeof item.then == 'function') {
+                                item.then(res => {
+                                    result[index] = res;
+                                    if (result.length === arr.length) resolve(result)
+                                }).catch(err => reject(err))
+                            } else {
+                                result[index] = item;
+                            }
+                        } else {
+                            result[index] = item;
+                        }
+                    })
+                })
+            }
+
+
+图片懒加载的实现
+
+            var imgs = document.querySelectorAll('img');
+
+            var imgs = document.querySelectorAll('img');
+
+            //offsetTop是元素与offsetParent的距离，循环获取直到页面顶部
+            function getTop(e) {
+                var T = e.offsetTop;
+                while(e = e.offsetParent) {
+                    T += e.offsetTop;
+                }
+                return T;
+            }
+
+            function lazyLoad(img) {
+                var H = document.documentElement.clientHeight;//获取可视区域高度
+                var S = document.documentElement.scrollTop || document.body.scrollTop;
+                for (var i = 0; i < imgs.length; i++) {
+                    if (H + S > getTop(imgs[i])) {
+                        imgs[i].src = imgs[i].getAttribute('data-src');
+                    }
+                }
+            }
+
+                window.onload = window.onscroll = function () { //onscroll()在滚动条滚动的时候触发
+                    lazyLoad(imgs);
+                }
+
+函数柯里化
+
+const curry = (fn, ...args) =>{
+  console.log('args',args)
+ // console.log(fn.length,args.length)
+ return args.length < fn.length
+ // 参数长度不足时，重新柯里化该函数，等待接受新参数
+ ? (...arguments) => {
+   console.log('arguments',arguments)
+   return curry(fn, ...args, ...arguments)
+ }
+ // 参数长度满足时，执行函数
+ : fn(...args);
+}

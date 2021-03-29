@@ -85,6 +85,7 @@ position的属性值：static、relative（相对其正常位置）、absolute�
 z-index：只对脱离文档流的元素有效
 flex布局: 父元素设为Flex布局后，子元素的float、clear、vertical-align属性将失效。
 BFC、触发条件、可解决的问题
+sticky：具体是类似 relative 和 fixed，在 viewport 视口滚动到阈值之前应用 relative，滚动到阈值之后应用 fixed 布局，由 top 决定。
 IFC是什么
 两栏布局：float + margin; calc; position + margin(或者transform) ；flex等
 三栏布局：float + margin; position + margin; flex; 圣杯；双飞翼等
@@ -706,6 +707,57 @@ cache-control的参数：
  delete:请求服务器删除指定的页面
 
  你觉得typescript和javascript有什么区别
- TypeScript 是 JavaScript 的一个超集。比如有类型的检测，代码更加严谨
+ 是JS的超集，为 JS 添加类型支持，以及提供最新版的 ES 语法的支持，是的利于团队协作和排错，开发大型项目
  cookie的属性：
  name,value,domain(可以访问此cookie的域名),size,http(cookie的httponly属性)，expires，max-age,secure字段：设置是否只能通过https来传递此条cookie。
+
+
+ options请求方法有什么用
+ OPTIONS请求即预检请求，可用于检测服务器允许的http方法。当发起跨域请求时，由于安全原因，
+ 触发一定条件时浏览器会在正式请求之前自动先发起OPTIONS请求，即CORS预检请求，服务器若接受
+ 该跨域请求，浏览器才继续发起正式请求。
+ 预检请求:比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json
+ 作用：服务器基于从预检请求头部获得的信息来判断，是否接受接下来的实际请求。
+ less,sass它们的作用是什么
+ （1）css样式可以嵌套，不用每个id都单独写  （2）变量，比如把颜色存在变量里
+ （3）混合宏 混合宏是小的代码片段（类似局部），你可以在项目中任何需要的地方，通过@include来复用它们。
+ 怎么判断是udp还是tcp
+ （1）可以通过抓包工具看
+ （2）在IP报头里有协议号。udp是17，tcp为6
+ 
+ 浏览器缓存方法
+ （1）cache-control   etag， last-modify对应if-modified-since（如果在单位秒里面做了修改，该值不会变化）
+ 
+ Vuex用过modules吧，说说A文件内的actions怎么修改B的state
+ 1,直接在A文件内引入B文件，调用B的actions。
+ 2. dispatch第三个参数为{root: true}
+ 
+ typescript  变量后面加上感叹号什么意思   非空断言
+ 
+ 如果有100万的pv访问，前端有什么方案去配合后端处理压力？
+ 
+ 这个问题，我当然的就是骨架屏，资源懒加载这样的体验上面的解决方案；还有一些静态数据缓存
+ 骨架屏：指在页面数据加载完成前，先给用户展示出页面的大致结构（灰色占位图） （1）使用图片、svg 或者
+ 手动编写骨架屏代码   （2）通过预渲染手动书写的代码生成相应的骨架屏（3）饿了么内部有一套方案比较成熟
+ 图片懒加载  scrollTop+clientHeight > offsetTop时 图片需要被展示
+ es10的bigInt   BigInt数据类型的目的是比Number数据类型支持的范围更大的整数值 2^53-1 通过数字后面加n可以实现
+ JS整数是怎么表示的   通过 64 位来表示一个数字
+ 
+ 事件是如何实现的
+ 基于发布订阅模式，就是在浏览器加载的时候会读取事件相关的代码，但是只有实际等到具体的事件触发的时候才会执行。
+ 
+ JS 隐式转换，显示转换
+ 一般非基础类型进行转换时会先调用 valueOf，如果 valueOf 无法返回基本类型值，就会调用 toString
+ 
+ 怎么加事件监听，两种
+ (1)DOM0级事件 onclick 同一个事件只能有一个处理程序 dom.onclick = null
+ (2)addEventListener  一个事件可以有多个事件处理程序，按顺序执行
+ 
+ 如果一个构造函数，bind了一个对象，用这个构造函数创建出的实例会继承这个对象的属性吗？为什么？
+ 不会， new 绑定的优先级高于 bind 显示绑定
+
+ ES6 Class中的static
+ 给类添加静态属性和方法的，可以继承
+
+ 柯里化的好处
+ (1) 参数复用 (2)提前确认（执行后返回一个函数，避免每次都判断）（3）延迟执行，例如bind
