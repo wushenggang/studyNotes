@@ -386,3 +386,33 @@ const curry = (fn, ...args) =>{
  // 参数长度满足时，执行函数
  : fn(...args);
 }
+
+下划线转为驼峰写法  包含数组
+
+function underline2Hump(s) {
+	let arr = s.split('_')
+	let nK = arr[0]
+	arr.forEach((item, index) => {
+		if (index> 0) {
+			nK += item.slice(0,1).toUpperCase() + item.slice(1)
+		}
+	})
+	return nK
+}
+
+function jsonToHump(obj) {
+	if (obj instanceof Array) {
+		obj.forEach((item) => {
+			jsonToHump(item)
+		})
+	} else if (obj instanceof Object) {
+		Object.keys(obj).forEach((key) => {
+			var newKey = underline2Hump(key)
+			if (newKey !== key) {
+				obj[newKey] = obj[key]
+				delete obj[key]
+			}
+			jsonToHump(obj[newKey])
+		})
+	}
+}
