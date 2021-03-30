@@ -215,9 +215,11 @@ function fn2() {
 async function fn(fn1, fn2) {
   let flag = ''
   fn1().then(() => { }).finally(() => {
+    console.log('11111111111111111')
     flag = '1'
   })
   fn2().then(() => { }).finally(() => {
+    console.log('222222222222222222')
     flag = '2'
   })
   try {
@@ -225,10 +227,10 @@ async function fn(fn1, fn2) {
   } catch (err) {
     try {
       if (flag == '1') {
-        console.log('111111111111111111')
+        // console.log('111111111111111111')
         await fn2()
       } else {
-        console.log('22222222222')
+        // console.log('22222222222')
         await fn1()
       }
     } catch (err2) {
@@ -287,7 +289,10 @@ class Dep {
 
 class Watch {
 	constructor(obj,key,cb) {
-		this.get()
+    this.get()
+    this.cb = cb
+    this.obj = obj
+    this.value = obj[val]
 	}
 	get() {
 		window.target = this
@@ -295,6 +300,7 @@ class Watch {
 	    window.target = null
 	}
 	update() {
+    this.value = this.obj[this.key]
 		this.cb()
 	}
 }
@@ -323,29 +329,6 @@ Promise.all = arr => {
 }
 
 
-Promise.all的实现
-
- Promise.all = arr => {
-                let result = []; //创建结果数组
-                return new Promise((resolve, reject) => {
-                    arr.forEach((item, index) => { //forEach 对arr数组循环遍历
-                        if ((typeof item === 'object' && item !== 'null') || typeof item === 'function') { //数组中的每一项是不是promise对象
-                            if (typeof item.then == 'function') {
-                                item.then(res => {
-                                    result[index] = res;
-                                    if (result.length === arr.length) resolve(result)
-                                }).catch(err => reject(err))
-                            } else {
-                                result[index] = item;
-                            }
-                        } else {
-                            result[index] = item;
-                        }
-                    })
-                })
-            }
-
-
 Promise.race()的实现
             Promise.myrace = function (arr) {
               return new Promise((resolve, reject) => {
@@ -366,8 +349,6 @@ Promise.race()的实现
 
             var imgs = document.querySelectorAll('img');
 
-            var imgs = document.querySelectorAll('img');
-
             //offsetTop是元素与offsetParent的距离，循环获取直到页面顶部
             function getTop(e) {
                 var T = e.offsetTop;
@@ -377,7 +358,7 @@ Promise.race()的实现
                 return T;
             }
 
-            function lazyLoad(img) {
+            function lazyLoad(imgs) {
                 var H = document.documentElement.clientHeight;//获取可视区域高度
                 var S = document.documentElement.scrollTop || document.body.scrollTop;
                 for (var i = 0; i < imgs.length; i++) {
