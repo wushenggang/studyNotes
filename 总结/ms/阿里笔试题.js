@@ -346,6 +346,22 @@ Promise.all的实现
             }
 
 
+Promise.race()的实现
+            Promise.myrace = function (arr) {
+              return new Promise((resolve, reject) => {
+                  for (let i = 0; i < arr.length; i++) {
+                      // 同时也能处理arr数组中非Promise对象
+                      if (!(arr[i] instanceof Promise)) {
+                          Promise.resolve(arr[i]).then(resolve, reject)
+                      } else {
+                          arr[i].then(resolve, reject)
+                      }
+
+                  }
+              })
+          }
+
+
 图片懒加载的实现
 
             var imgs = document.querySelectorAll('img');
