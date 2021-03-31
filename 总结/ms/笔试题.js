@@ -390,6 +390,12 @@ const curry = (fn, ...args) =>{
 下划线转为驼峰写法  包含数组
 
 function underline2Hump(s) {
+  return s.replace(/_(\w)/g, function(all, letter) {
+    return letter.toUpperCase()
+  })
+}
+   or
+function underline2Hump(s) {
 	let arr = s.split('_')
 	let nK = arr[0]
 	arr.forEach((item, index) => {
@@ -415,4 +421,28 @@ function jsonToHump(obj) {
 			jsonToHump(obj[newKey])
 		})
 	}
+}
+
+
+驼峰写法转换为下划线的写法
+
+function hump2Underline(s) {
+  return s.replace(/([A-Z])/g, '_$1').toLowerCase()
+}
+
+function jsonToUnderline(obj) {
+  if (obj instanceof Array) {
+    obj.forEach(function(v, i) {
+      jsonToUnderline(v)
+    })
+  } else if (obj instanceof Object) {
+    Object.keys(obj).forEach(function(key) {
+      var newKey = hump2Underline(key)
+      if (newKey !== key) {
+        obj[newKey] = obj[key]
+        delete obj[key]
+      }
+      jsonToUnderline(obj[newKey])
+    })
+  }
 }
