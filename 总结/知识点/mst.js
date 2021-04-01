@@ -886,3 +886,22 @@ UDP面向非连接，速度快，不可靠，顺序发乱序收，如果丢包�
 vue3 ref和reactive使用上的区别
 (1)reactive的参数必须是对象（2）修改时，ref必须加上.value。通过修改value的值，可以触发模板的重新渲染，显示最新的值
 将reactive的值拿到修改后页面不会有响应     toRefs可以转换为ref
+
+对vite的理解？
+
+http头部字段：
+请求头：
+user-agent
+refer：表示当前请求资源所在页面的完整路径：协议+域名+查询参数（注意不包含锚点信息）
+host: 要被发送的目的地
+origin：请求的来源站点(一般只在跨域请求中有)
+accept: 期望服务器返回 html 类型的文件
+accept - encoding: gzip, deflate, br            //期望服务器可以采用 gzip、deflate 或者 br 其中的一种压缩方式
+accept - Charset: ISO - 8859 - 1, utf - 8              //期望返回的文件编码是 UTF-8 或者 ISO-8859-1
+accept - language: zh - CN, zh                     //期望页面的优先语言是中文
+响应头：
+content - encoding: br                          //表示服务器采用了 br 的压缩方法
+content - type: text / html; charset = UTF - 8        //表示服务器返回的是 html 文件
+Connection:keep-alive
+location
+Set-Cookie	
