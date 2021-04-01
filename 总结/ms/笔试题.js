@@ -446,3 +446,75 @@ function jsonToUnderline(obj) {
     })
   }
 }
+
+已知数组 a=[1,[2,[3,[4,null]]]], 实现数组 b=[4,[3,[2,[1,null]]]] ，考虑n级嵌套的情况
+
+
+
+实现数组的负索引，比如arr[-1]表示数组的最后一个元素，arr[-2]倒数第二个元素，自定义类的那种
+const arr = new MyArray(1,2,3,4...) arr[-1]
+
+const foo = new Proxy([1, 2, 3], {
+  get: function(obj, prop) {
+    if (prop in obj) {
+      return obj[prop]
+    }
+    if (typeof prop !== 'symbol' && parseInt(prop) < 0) {
+      return obj[obj.length + parseInt(prop)]
+    }
+    return undefined
+  }
+})
+
+
+
+实现一个Queue链式调用，1s、3s、5s后输出1，2，3；调用start才开始，调用stop可随时结束
+class Queue {
+  constructor() {
+    this.queue = []
+    this.timerArr = []
+    this.time = 0
+  }
+  task(time, fn) {
+    this.time += time
+    this.queue.push({
+      time: this.time,
+      fn: fn
+    })
+    return this;
+  }
+  start() {
+    this.queue.forEach(item => {
+      let timer = setTimeout(() => {
+        item.fn()
+        this.timerArr.push(timer)
+      }, item.time)
+    })
+    return this;
+  }
+  stop() {
+    this.timerArr.forEach(item => {
+      item = null
+    })
+  }
+}
+
+判断js对象中是否存在循环引用
+
+const isCycleObject = (obj,parent) => {
+  const parentArr = parent || [obj];
+  for(let i in obj) {
+      if(typeof obj[i] === 'object') {
+          let flag = false;
+          parentArr.forEach((pObj) => {
+              if(pObj === obj[i]){
+                  flag = true;
+              }
+          })
+          if(flag) return true;
+          flag = isCycleObject(obj[i],[...parentArr,obj[i]]);
+          if(flag) return true;
+      }
+  }
+  return false;
+}
