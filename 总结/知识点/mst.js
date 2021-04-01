@@ -920,3 +920,30 @@ configurable:当且仅当该属性的 configurable 键值为 true 时，该属�
 缺点
 （1）不利于SEO
 （2）前进后退需要程序进行管理
+
+letcode 88     letcode 349
+
+
+ajax如何在跨域的情况下携带cookie
+响应头中的Access-Control-Allow-Credentials设为true
+
+encodeURIComponent()   对url进行编码
+decodeURIComponent()   对编码后的uri进行解码
+
+
+作者：LYNNzZ361
+链接：https://www.nowcoder.com/discuss/624128?source_id=discuss_experience_nctrack&channel=-1
+来源：牛客网
+
+function Foo() {
+    getName = function() {
+        console.log(1);
+    };
+    return this
+}
+ 
+function getName() {
+    console.log(5);
+}
+ 
+Foo().getName(); // 输出是？                       1   为啥是这样啊
