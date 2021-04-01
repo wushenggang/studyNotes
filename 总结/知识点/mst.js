@@ -930,20 +930,23 @@ ajax如何在跨域的情况下携带cookie
 encodeURIComponent()   对url进行编码
 decodeURIComponent()   对编码后的uri进行解码
 
+ES6的class是怎么实现的？
+ES6创建一个class会默认添加constructor方法，并在new调用时自动调用该方法。
+然后里面的this指向的就是实例对象。class的内部定义的方法都是不可枚举的（non-enumerable），
+这一点与ES5的行为不一致
 
-作者：LYNNzZ361
-链接：https://www.nowcoder.com/discuss/624128?source_id=discuss_experience_nctrack&channel=-1
-来源：牛客网
-
-function Foo() {
-    getName = function() {
-        console.log(1);
-    };
-    return this
-}
- 
-function getName() {
-    console.log(5);
-}
- 
-Foo().getName(); // 输出是？                       1   为啥是这样啊
+浏览器标签之间的通信
+1，cookie + setInterval()
+cookie在用户所有浏览器标签页中都是共享的,所有的标签页都能获取并且还能进行修改。
+由于更新cookie并不能触发任何事件，因此我们需要通过定时器setInterval来主动监听cookie中的值是否改变；
+缺点：（1）cookie空间有限，浏览器在每一个域名下最多能设置30-50个cookie，容量最多为4k左右。
+	（2）每次HHTP请求才会把当前域的cookie发送到服务器上，包括只在本地才用到的而服务器不用的，浪费带宽。
+	（3）setInterval频率设置过大会影响浏览器的性能，过小会影响时效性。
+ 2，localStorage
+localStorage也是浏览器多个页面共用的存储空间；而且localStorage在一个页面中添加、修改或者删除时，
+都会在非当前页面中被动触发一个storage事件，我们通过在其他页面中监听storage事件，即可拿到storage
+更新前后的值
+ 3，websocket
+ webSocket需要用到服务端，send.html发送消息到WebSocketServer，WebSocketServer再实时把消息发给receive.html
+ 4，SharedWorker方式
+ WebWorker只能在一个窗口内使用，而现在我们需求是多个窗口之间通信，就要用SharedWorker了。
