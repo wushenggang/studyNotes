@@ -905,3 +905,11 @@ content - type: text / html; charset = UTF - 8        //表示服务器返回的
 Connection:keep-alive
 location
 Set-Cookie	
+
+优化斐波那契数列
+
+Object.defineProperty的三个参数，第三个参数除了get set还有什么
+value: 该属性对应的值。
+writable:是否可写
+enumerable：是否可枚举（for...in, Object.keys()）
+configurable:当且仅当该属性的 configurable 键值为 true 时，该属性的描述符才能够被改变，同时该属性也能从对应的对象上被删除。
