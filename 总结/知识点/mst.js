@@ -86,6 +86,7 @@ z-index：只对脱离文档流的元素有效
 flex布局: 父元素设为Flex布局后，子元素的float、clear、vertical-align属性将失效。
 BFC、触发条件、可解决的问题
 sticky：具体是类似 relative 和 fixed，在 viewport 视口滚动到阈值之前应用 relative，滚动到阈值之后应用 fixed 布局，由 top 决定。
+一般用在对scroll事件的监听上，在滑动过程中，如果某个元素距离父元素的高度达到了sticky粘性定位的要求时，相当于fixed定位，固定到适当的位置。
 IFC是什么
 两栏布局：float + margin; calc; position + margin(或者transform) ；flex等
 三栏布局：float + margin; position + margin; flex; 圣杯；双飞翼等
@@ -950,3 +951,32 @@ localStorage也是浏览器多个页面共用的存储空间；而且localStorag
  webSocket需要用到服务端，send.html发送消息到WebSocketServer，WebSocketServer再实时把消息发给receive.html
  4，SharedWorker方式
  WebWorker只能在一个窗口内使用，而现在我们需求是多个窗口之间通信，就要用SharedWorker了。
+
+ 判断空对象的方式：
+ （1）JSON.stringify(dataObject) == '{}'   （2）Object.keys(dataObject).length == 0   
+ （3）定义一个函数，函数里套入for.. in循环 若进入for.. in 证明对象中有内容 没进入则对象中无内容
+
+ 死锁：
+ 所谓死锁，是指多个进程在运行过程中因争夺资源而造成的一种僵局
+
+ 行内元素不能设置宽高，竖直方向的margin、padding
+
+ css实现垂直居中的方式
+ 一，知道居中元素的宽高
+ （1）absolute + 负margin  （2）absolute + margin auto  (3)absolute + calc
+ 二，不知道居中元素的宽高
+ （1）absolute + transform （transform: translate(-50% , -50%)） （2）flex布局  （3）table-cell布局 （父元素table-cell布局，子元素设置为行内块元素）
+
+ == 发现有一边不是原始值类型，就会先调用valueOf方法进行转换，如果转换后依然不是原始值类型，继续用
+toString方法进行转换，转成原始类型后，再用Number()方法进行转换    [] == false
+
+isNaN 和 Number.isNaN 函数的区别？
+函数 isNaN 接收参数后，会尝试将这个参数转换为数值，任何不能被转换为数值的的值都会返回 true，因此非数字值传入也会返回 true ，会影响 NaN 的判断。
+
+函数 Number.isNaN 会首先判断传入参数是否为数字，如果是数字再继续判断是否为 NaN ，这种方法对于 NaN 的判断更为准确。
+
+websocket的心跳机制
+
+就是表明client与server的连接是否还在的检测机制，原理就是定时向server发送消息，如果接收到server的响应就表明连接依旧存在；
+
+运营商劫持DNS咋办

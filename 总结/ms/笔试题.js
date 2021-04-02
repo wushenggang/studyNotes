@@ -518,3 +518,14 @@ const isCycleObject = (obj,parent) => {
   }
   return false;
 }
+
+
+用reduce来实现map
+
+Array.prototype._map = function(fn, thisArg) {
+  const result = [];
+  this.reduce((prev, curr, index, array) => {
+    result[index] = fn.call(thisArg, array[index], index, array);
+  }, 0)
+  return result;
+}
