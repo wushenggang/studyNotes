@@ -911,3 +911,82 @@ var lengthOfLongestSubstring = function (s) {
     res = Math.max(res, m.length)
     return res
 };
+
+
+4. 寻找两个正序数组的中位数
+var findMedianSortedArrays = function(nums1, nums2) {
+  let result;
+  let nums = nums1.concat(nums2)
+  nums.sort((a,b) => a-b)
+  let len = nums.length 
+  if (len% 2) {
+      result = nums[Math.floor(len/2)]
+  } else {
+      result = (nums[len/2] + nums[len/2-1])/2
+  }
+  return result
+};
+
+
+56 合并区间
+
+时间复杂度 O(nlog(n))
+空间复杂度：O(n)
+
+var merge = function (intervals) {
+  let res = [];
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  let prev = intervals[0];
+
+  for (let i = 1; i < intervals.length; i++) {
+    let cur = intervals[i];
+    if (prev[1] >= cur[0]) { // 有重合
+      prev[1] = Math.max(cur[1], prev[1]); 
+    } else {       // 不重合，prev推入res数组 
+      res.push(prev);
+      prev = cur;  // 更新 prev
+    }
+  }
+
+  res.push(prev);
+  return res;
+};
+
+
+435 无重叠区间
+
+var eraseOverlapIntervals = function(intervals) {
+  const n = intervals.length
+  if (n === 0) return 0
+  intervals.sort((a, b) => a[0] - b[0])
+  let end = intervals[0][1], res = 0;
+  for (let i = 1; i < n; i++) {
+    if (intervals[i][0] < end) {
+      end = Math.min(end, intervals[i][1])
+      res++;
+    } else {
+      end = intervals[i][1]
+    }
+  }
+  return res
+};
+
+14 最长公共前缀
+
+ var longestCommonPrefix = function(strs) {
+  if(strs.length == 0) 
+      return "";
+  let ans = strs[0];
+  for(let i =1;i<strs.length;i++) {
+      let j=0;
+      for(;j<ans.length && j < strs[i].length;j++) {
+          if(ans[j] != strs[i][j])
+              break;
+      }
+      ans = ans.substr(0, j);
+      if(ans === "")
+          return ans;
+  }
+  return ans;
+};
