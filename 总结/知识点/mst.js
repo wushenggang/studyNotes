@@ -697,7 +697,7 @@ cache-control的参数：
  (2)将其显示在css的background-image样式上，同样是直接放上编码内容
 
  如何将图片直接转成base64？
- （1）可以通过h5的新api FileReader来实现   使用FileReader 对象接收blob
+ （1）可以通过h5的新api FileReader来实现   使用FileReader 对象接收blob    blob(二进制大对象)
 	(2) canvas.toDataURL()方法
 
  浏览器如何预览图片，假设我要上传图片，未上传前我想在浏览器看到我待上传的图片

@@ -449,6 +449,22 @@ function jsonToUnderline(obj) {
 
 已知数组 a=[1,[2,[3,[4,null]]]], 实现数组 b=[4,[3,[2,[1,null]]]] ，考虑n级嵌套的情况
 
+function reSort(arr) {
+	let flatArr;
+	flatArr = arr.flat(Infinity)
+	flatArr.pop()
+	flatArr.reverse()
+	let i = 0;
+	helper(arr,i,flatArr)
+}
+function helper(arr, i, flatArr) {
+	if (Array.isArray(arr) && arr.length > 1) {
+		arr[0] = flatArr[i]
+		i++;
+		helper(arr[1],i,flatArr)
+	}
+}
+
 
 
 实现数组的负索引，比如arr[-1]表示数组的最后一个元素，arr[-2]倒数第二个元素，自定义类的那种

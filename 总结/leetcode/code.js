@@ -1054,6 +1054,12 @@ function threeOrders( root ) {
 例如，arr = [1, -2, 3, 5, -2, 6, -1]，所有子数组中，[3, 5, -2, 6]可以累加出最大的和12，所以返回12.
 题目保证没有全为负数的数据
 
+设置动态数组dp[i]：下标为i处之前的最大累加和(可能不包括自己也可能包括自己)以下为转移方程
+
+初始化dp[0] = arr[0]
+dp[i-1] > 0 -> dp[i] = dp[i-1] + arr[i]
+dp[i-1] <= 0 -> dp[i] = arr[i]
+
 function maxsumofSubarray( arr ) {
   let dp = []
   dp[0] = arr[0]
@@ -1132,7 +1138,7 @@ function LCS( str1 ,  str2 ) {
           maxLen++;
       }
   }
-  return res;
+  return maxLen === 0 ? -1 : res
 }
 
 
@@ -1156,4 +1162,79 @@ function FindKthToTail( pHead ,  k ) {
       i--;
   }
   return p
+}
+
+
+
+合并有序列表
+将两个有序的链表合并为一个新链表，要求新的链表是通过拼接两个链表的节点来生成的，且合并后新链表依然有序。
+
+function mergeTwoLists( l1 ,  l2 ) {
+  // write code here
+  let curr = new ListNode();
+  let dummy = curr;
+  while(l1 !== null &&l2 !==null){
+      if(l1.val<l2.val){
+          curr.next = l1;
+          l1 = l1.next;
+      }else{
+          curr.next = l2;
+          l2 = l2.next;
+      }
+      curr = curr.next;
+  
+  }
+  if(l1!==null){
+      curr.next = l1;
+  }
+      if(l2!==null){
+      curr.next = l2;
+  }
+  return dummy.next;
+}
+
+
+二叉树的之字形层序遍历
+给定一个二叉树，返回该二叉树的之字形层序遍历，（第一层从左向右，下一层从右向左，一直这样交替）
+
+function zigzagLevelOrder(root) {
+  if (!root) {
+      return [];
+  }
+  let queue = [root]
+  let result = []
+  let level = 0;
+  while(queue.length) {
+      let len = queue.length;
+      let row = []
+      while(len) {
+          let node = queue.shift()
+          row.push(node.val)
+          if (node.left) {queue.push(node.left)}
+          if (node.right) {queue.push(node.right)}
+          len--;
+      }
+      level++;
+      if (level%2 == 0){
+          result.push(row.reverse())
+      } else {
+          result.push(row)
+      }
+  }
+  return result;
+}
+
+两个链表的第一个公共节点
+
+输入两个链表，找出它们的第一个公共结点。
+（注意因为传入数据是链表，所以错误测试数据的提示是用其他方式显示的，保证传入数据是正确的）
+思路（将链表的长度改为链表A的长度加上链表B的长度）
+
+function FindFirstCommonNode(pHead1, pHead2) {
+  let p1 = pHead1, p2 = pHead2;
+  while(p1 !== p2) {
+      p1 = p1 ? p1.next : pHead2;
+      p2 = p2 ? p2.next : pHead1;
+  }
+  return p1;
 }
