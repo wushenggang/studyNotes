@@ -990,3 +990,170 @@ var eraseOverlapIntervals = function(intervals) {
   }
   return ans;
 };
+
+
+给定一个数组arr，返回arr的最长无的重复子串的长度(无重复指的是所有数字都不相同)。
+
+暴力法：
+
+function maxLength(arr) {
+  let max  = 1
+  if (arr.length === 0) {
+      return 0;
+  }
+  for (let i = 0; i < arr.length; i++) {
+      for (let j = i+1; j < arr.length; j++) {
+          if (arr[j] != arr[i] && arr[j] != arr[j-1]) {
+              max = Math.max(max, j-i+1)
+          } else {
+              break;
+          }
+      }
+  }
+  return max
+}
+
+
+//实现二叉数的前序，中序，后序遍历
+
+function threeOrders( root ) {
+  const preRes = []
+  function preOrder(root) {
+      if (root) {
+          preRes.push(root.val)
+          preOrder(root.left)
+          preOrder(root.right)
+      }
+  }
+  const inRes = []
+  function inOrder(root) {
+      if (root) {
+          inOrder(root.left)
+          inRes.push(root.val)
+          inOrder(root.right)
+      }
+  }
+  const postRes = []
+  function postOrder(root) {
+      if(root) {
+          postOrder(root.left)
+          postOrder(root.right)
+          postRes.push(root.val)
+      }
+  }
+  // write code here
+  preOrder(root)
+  inOrder(root)
+  postOrder(root)
+  return [preRes, inRes, postRes]
+}
+
+子数组的最大累加和问题
+
+给定一个数组arr，返回子数组的最大累加和
+例如，arr = [1, -2, 3, 5, -2, 6, -1]，所有子数组中，[3, 5, -2, 6]可以累加出最大的和12，所以返回12.
+题目保证没有全为负数的数据
+
+function maxsumofSubarray( arr ) {
+  let dp = []
+  dp[0] = arr[0]
+  for (let i = 1; i < arr.length; i++) {
+      if (dp[i-1] > 0) {
+          dp[i] = dp[i-1] + arr[i]
+      } else {
+          dp[i] = arr[i]
+      }
+  }
+   return Math.max(...dp)
+}
+
+合并两个有序的数组
+
+function merge( A, m, B, n ) {
+  if (n==0) return A
+  A.push(...B)
+  return A.sort((a,b) => a-b)
+}
+
+
+function removeNthFromEnd( head ,  n ) {
+  // write code here
+  let tail = head,p=head,length = 1;
+  while(tail.next){
+      tail = tail.next;
+      length++;
+  }
+  let i = length-n;
+  if(i===0){
+      p = p.next;
+      return p;
+  }
+  while(i-1>0){
+      p = p.next;
+      i--;
+  }
+  p.next = p.next.next;
+  return head;    
+}
+
+删除链表倒数第n个节点
+
+function removeNthFromEnd( head ,  n ) {
+  // write code here
+  let tail = head,p=head,length = 1;
+  while(tail.next){
+      tail = tail.next;
+      length++;
+  }
+  let i = length-n;
+  if(i===0){
+      p = p.next;
+      return p;
+  }
+  while(i-1>0){
+      p = p.next;
+      i--;
+  }
+  p.next = p.next.next;
+  return head;    
+}
+
+最长公共子串
+给定两个字符串str1和str2,输出两个字符串的最长公共子串
+题目保证str1和str2的最长公共子串存在且唯一。
+
+function LCS( str1 ,  str2 ) {
+  // write code here
+  let maxLen = 0, res = '';
+  for(let i = 0; i < str1.length; i++) {
+      let temp = str1.slice(i - maxLen, i + 1);
+      if(str2.indexOf(temp) !== -1) {
+          res = temp;
+          maxLen++;
+      }
+  }
+  return res;
+}
+
+
+题目描述
+输入一个链表，输出该链表中倒数第k个结点。
+如果该链表长度小于k，请返回空。
+
+function FindKthToTail( pHead ,  k ) {
+  if (!pHead) {return ''}
+  let tail = pHead,p=pHead,length = 1;
+  while(tail.next) {
+      tail = tail.next;
+      length++
+  }
+  if (length < k) {
+      return ''
+  }
+  let i = length - k;
+  while(i > 0) {
+      p = p.next;
+      i--;
+  }
+  return p
+}

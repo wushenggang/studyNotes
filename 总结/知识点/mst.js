@@ -781,10 +781,7 @@ PWA（Progressive Web App）是一种理念，使用多种技术来增强web app
 能够模拟一些原生功能，比如通知推送。在移动端利用标准化框架，让网页应用呈现和原生应用相似的体验。
 
 Service Worker 是一个 基于HTML5 API ，也是PWA技术栈中最重要的特性， 它在 Web Worker 的基础上加上了持久离线缓存和网络代理能力，
-结合Cache API面向提供了JavaScript来操作浏览器缓存的能力，这使得Service Worker和PWA密不可分。目前对于苹果的兼容性不是太好，但是
-后续会支持。
-
-还需要支持一些推送的功能，这方面可以借助助 PWA 的 Push 特性
+可以解决离线存储和消息推送的问题。通过引入 manifest.json 来解决一级入口的问题
 
 serverless
 
