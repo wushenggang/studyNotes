@@ -894,7 +894,7 @@ class LRUCache {
 }
 
 
-最长不含重复字符的子字符串
+最长不含重复字符的子字符串(请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。)
 剑指offer48
 var lengthOfLongestSubstring = function (s) {
     var m = ''
@@ -1054,7 +1054,7 @@ function threeOrders( root ) {
 例如，arr = [1, -2, 3, 5, -2, 6, -1]，所有子数组中，[3, 5, -2, 6]可以累加出最大的和12，所以返回12.
 题目保证没有全为负数的数据
 
-设置动态数组dp[i]：下标为i处之前的最大累加和(可能不包括自己也可能包括自己)以下为转移方程
+设置动态数组dp[i]：以arr[i]结尾的最大累加和
 
 初始化dp[0] = arr[0]
 dp[i-1] > 0 -> dp[i] = dp[i-1] + arr[i]
@@ -1079,27 +1079,6 @@ function merge( A, m, B, n ) {
   if (n==0) return A
   A.push(...B)
   return A.sort((a,b) => a-b)
-}
-
-
-function removeNthFromEnd( head ,  n ) {
-  // write code here
-  let tail = head,p=head,length = 1;
-  while(tail.next){
-      tail = tail.next;
-      length++;
-  }
-  let i = length-n;
-  if(i===0){
-      p = p.next;
-      return p;
-  }
-  while(i-1>0){
-      p = p.next;
-      i--;
-  }
-  p.next = p.next.next;
-  return head;    
 }
 
 删除链表倒数第n个节点

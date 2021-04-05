@@ -173,16 +173,19 @@ switch(n)
   (1)
 arr_flat = arr.flat(Infinity);
 (2) 递归
-let result = [];
-let fn = function (ary) {
-  for (let i = 0; i < ary.length; i++) {
-    let item = ary[i];
-    if (Array.isArray(ary[i])) {
-      fn(item);
-    } else {
-      result.push(item);
-    }
-  }
+function fn(arr) {
+	let flatArr = []
+	helper(arr, flatArr)
+	return flatArr
+}
+function helper(arr, flatArr) {
+	for (let i =0; i < arr.length; i++) {
+		if (typeof arr[i] === 'object') {
+			helper(arr[i], flatArr)
+		} else {
+			flatArr.push(arr[i])
+		}
+	}
 }
   (3) reduce实现
 function flatten(ary) {
