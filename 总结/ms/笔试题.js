@@ -548,3 +548,51 @@ Array.prototype._map = function(fn, thisArg) {
   }, 0)
   return result;
 }
+
+
+1.实现destructuringArray方法，达到如下效果
+
+// destructuringArray( [1,[2,4],3], "[a,[b],c]" );
+
+// result
+
+// { a:1, b:2, c:3 }复制代码
+
+const targetArray = [1, [2, 3], 4];
+const formater = "[a, [b], c]";
+const destructuringArray = (values, keys) => {
+const arr = values.flat(Infinity);
+const arr1 = JSON.parse(keys.replace(/\w+/g, '"$&"')).flat(Infinity);
+let obj = {};
+arr1.forEach((key, i) => {
+obj[key] = arr[i]
+})
+return obj;
+}
+destructuringArray(targetArray,formater)
+
+
+
+
+
+2.需要通过threshold参数控制调用函数频率
+
+const yourFunction = function(func, threshold) {
+
+//请实现
+
+}
+
+const triggerSearch = yourFunction((val) => {
+
+const {
+
+onSearch
+
+} = this.props
+
+onSearch(val)
+
+}, 300)
+
+triggerSearch(searchText)复制代码
