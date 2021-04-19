@@ -596,3 +596,27 @@ onSearch(val)
 }, 300)
 
 triggerSearch(searchText)复制代码
+
+
+第五题
+
+function http(value) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() < 0.5) {
+        resolve(value)
+      } else {
+        resolve(http(value))
+      }
+    }, Math.random()*2000)
+  })
+}
+
+let A = http('A')
+let B = http('B')
+let C = http('C')
+let D = http('D')
+
+Promise.all([A,B,C,D]).then((res) => {
+  console.log('成功',res)
+})
