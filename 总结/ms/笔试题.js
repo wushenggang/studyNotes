@@ -262,7 +262,7 @@ function observe(obj) {
 	})
 }
 
-function defineReactive(obj,key, val) {
+function defineReactive(obj, key, val) {
 	let dp = new Dep()
 	Object.defineProperty(obj, key, {
 		get: function() {
